@@ -2,6 +2,7 @@
     "compilerOptions": {
         "rootDir": "./src",
         "outDir": "./dist",
+        "incremental": true,
 
         "strict": true,
         "module": "NodeNext",
