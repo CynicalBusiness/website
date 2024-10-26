@@ -27,19 +27,30 @@ export function lint() {
         .pipe(eslint.failAfterError());
 }
 
+export function copy() {
+    return gulp
+        .src(["src/public/**/*", "src/views/**/*.pug"], {
+            base: "src",
+            buffer: false,
+        })
+        .pipe(gulp.dest("dist"));
+}
+
 export function start() {
     return nodemon({
-        script: "dist/main.js",
+        script: "main.js",
         watch: "dist",
         ext: "js",
         inspect: true,
+        // eslint-disable-next-line no-undef -- eslint please stop being dumb
+        cwd: process.cwd() + "/dist",
     });
 }
 
-export const build = gulp.series(lint, transpileJS);
+export const build = gulp.series(copy, lint, transpileJS);
 
 export function watch() {
-    return gulp.watch(srcFiles, build);
+    return gulp.watch("src/**/*", build);
 }
 
 export const serve = gulp.series(build, gulp.parallel(watch, start));

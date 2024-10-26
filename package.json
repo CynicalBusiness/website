@@ -12,12 +12,14 @@
         "start": "node lib/main.js",
         "lint": "gulp lint",
         "build": "gulp build",
-        "serve": "gulp serve"
+        "watch": "gulp build watch"
     },
     "devDependencies": {
         "@eslint/js": "^9.13.0",
         "@stylistic/eslint-plugin": "^2.9.0",
         "@types/eslint__js": "^8.42.3",
+        "@types/express": "^4",
+        "@types/morgan": "^1",
         "eslint": "^9.13.0",
         "eslint-import-resolver-typescript": "^3.6.3",
         "eslint-plugin-import": "^2.31.0",
@@ -27,5 +29,10 @@
         "gulp-typescript": "^6.0.0-alpha.1",
         "typescript": "^5.6.3",
         "typescript-eslint": "^8.11.0"
+    },
+    "dependencies": {
+        "express": "^4.21.1",
+        "morgan": "^1.10.0",
+        "pug": "^3.0.3"
     }
 }

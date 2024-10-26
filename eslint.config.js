@@ -21,6 +21,7 @@ export default tseslint.config(
                 typescript: true,
                 node: true,
             },
+            "no-undef": "off", // https://eslint.org/docs/latest/rules/no-undef#handled_by_typescript
         },
     }
 );
