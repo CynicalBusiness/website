@@ -1,0 +1,16 @@
+- var titlePrefix = "CynicalBusiness"
+- var title = title || ""
+
+html(lang="en")
+    head
+        title
+            block title
+                | #{titlePrefix}
+        block assets
+            link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css")
+            link(rel="stylesheet", href="/assets/styles/index.css")
+    body
+        block header
+            p Header
+        block main
+            p Main

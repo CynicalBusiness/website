@@ -1,0 +1,6 @@
+
+mixin navLink(href, text)
+    a.nav-link(href=href)= text
+
+nav#pageNav
+    +navLink("/", "Home")

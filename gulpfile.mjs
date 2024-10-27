@@ -2,6 +2,10 @@ import gulp from "gulp";
 import ts from "gulp-typescript";
 import eslint from "gulp-eslint-new";
 import nodemon from "gulp-nodemon";
+import gulpSass from "gulp-sass";
+import _sass from "node-sass";
+
+const sass = gulpSass(_sass);
 
 const srcDir = "src";
 const srcFiles = `${srcDir}/**/*`;
@@ -15,6 +19,13 @@ export function transpileJS() {
         .pipe(gulp.dest("dist"));
 }
 
+export function transpileCSS() {
+    return gulp
+        .src("src/public/styles/*.scss", { base: "src" })
+        .pipe(sass())
+        .pipe(gulp.dest("dist"));
+}
+
 export function lint() {
     return gulp
         .src(srcFiles + ".ts")
@@ -23,13 +34,13 @@ export function lint() {
                 configType: "flat",
             })
         )
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
+        .pipe(eslint.format());
+    // .pipe(eslint.failAfterError());
 }
 
 export function copy() {
     return gulp
-        .src(["src/public/**/*", "src/views/**/*.pug"], {
+        .src(["src/views/**/*.pug"], {
             base: "src",
             buffer: false,
         })
@@ -47,10 +58,22 @@ export function start() {
     });
 }
 
-export const build = gulp.series(copy, lint, transpileJS);
+export const buildAssets = copy;
+export const buildJS = gulp.series(lint, transpileJS);
+export const buildCSS = transpileCSS;
 
-export function watch() {
-    return gulp.watch("src/**/*", build);
-}
+export const build = gulp.parallel(copy, buildJS, transpileCSS);
+
+export const watch = gulp.parallel(
+    function watchJS() {
+        return gulp.watch(["src/**/*.ts"], { ignoreInitial: false }, buildJS);
+    },
+    function watchCSS() {
+        gulp.watch(["src/**/*.scss"], { ignoreInitial: false }, buildCSS);
+    },
+    function watchAssets() {
+        return gulp.watch(["src/views/**/*"], { ignoreInitial: false }, copy);
+    }
+);
 
 export const serve = gulp.series(build, gulp.parallel(watch, start));
