@@ -24,6 +24,7 @@ module.exports = [
     {
         rules: {
             "no-undef": "off", // https://eslint.org/docs/latest/rules/no-undef#handled_by_typescript
+            "@stylistic/arrow-parens": "off",
         },
     },
     {

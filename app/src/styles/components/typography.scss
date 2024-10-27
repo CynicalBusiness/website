@@ -1,0 +1,26 @@
+@layer base {
+    h1 {
+        @apply text-4xl font-light;
+    }
+    h2 {
+        @apply text-2xl font-light;
+    }
+    h3 {
+        @apply text-xl;
+    }
+    h4 {
+        @apply text-lg;
+    }
+    h5 {
+        @apply text-base uppercase;
+    }
+
+    a {
+        @apply underline;
+    }
+}
+
+a.active {
+    text-decoration: none;
+    font-weight: bold;
+}
