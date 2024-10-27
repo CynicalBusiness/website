@@ -1,0 +1,10 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "moduleResolution": "Bundler",
+        "module": "Preserve",
+        "baseUrl": ".",
+
+        "strict": true
+    }
+}
