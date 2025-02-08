@@ -1,0 +1,6 @@
+{
+    // ! This file being here keeps Next.js from switching to SWC
+
+    "presets": ["@nx/next/babel"],
+    "plugins": []
+}

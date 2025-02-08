@@ -226,3 +226,4 @@ dist/
 
 .nx/cache
 .nx/workspace-data
+tmp/

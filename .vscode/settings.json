@@ -5,5 +5,7 @@
     },
 
     // Disable SCSS validation and let stylelint handle it
-    "scss.validate": false
+    "scss.validate": false,
+
+    "prettier.enable": false
 }
