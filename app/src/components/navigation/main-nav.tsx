@@ -1,9 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
+import { Logo } from "../media/logo";
+import { ThemeToggle } from "../controls/theme-toggle";
 
 const navItems = [
     {
         to: "/",
-        label: "About",
+        label: "Home",
     },
     {
         to: "/portfolio",
@@ -17,6 +19,10 @@ const navItems = [
         to: "/tales",
         label: "Tales",
     },
+    {
+        to: "/about",
+        label: "About",
+    },
 ] as const;
 
 export function MainNav() {
@@ -27,14 +33,18 @@ export function MainNav() {
     ));
 
     return (
-        <nav
-            id="mainNav"
-            className="flex justify-center align-middle gap-4 my-4"
-        >
-            <Link to="/">
-                <img src="/assets/logo.svg" alt="Home" className="size-6" />
-            </Link>
-            {navLinks}
-        </nav>
+        <div className="flex justify-between align-middle gap-8 mx-16 my-4 text-lg">
+            <div className="flex justify-left align-middle">
+                <Link to="/">
+                    <Logo className="size-8" />
+                </Link>
+            </div>
+
+            <div className="flex justify-center align-middle gap-8">
+                {navLinks}
+            </div>
+
+            <ThemeToggle />
+        </div>
     );
 }

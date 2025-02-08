@@ -1,0 +1,29 @@
+@layer components {
+    .theme-toggle {
+        @apply relative flex flex-row;
+
+        > .theme-toggle-section {
+            @apply p-2 border border-neutral-400;
+
+            &.theme-toggle-section-light {
+                @apply rounded-l-lg;
+            }
+
+            // &.theme-toggle-section-default {
+            //     @apply ;
+            // }
+
+            &.theme-toggle-section-dark {
+                @apply rounded-r-lg;
+            }
+
+            &.active {
+                @apply border-neutral-700 dark:border-neutral-200;
+            }
+
+            &:not(.active) {
+                @apply opacity-50 bg-neutral-100 dark:bg-neutral-700 border-neutral-200 dark:border-neutral-500;
+            }
+        }
+    }
+}

@@ -4,6 +4,13 @@
     "sourceRoot": "app/src",
     "projectType": "application",
     "tags": [],
-    "// targets": "to see all targets run: nx show project app --web",
-    "targets": {}
+    "targets": {
+        "stylelint": {
+            "executor": "nx-stylelint:lint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["app/**/*.css"]
+            }
+        }
+    }
 }

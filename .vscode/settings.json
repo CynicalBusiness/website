@@ -2,5 +2,8 @@
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit"
-    }
+    },
+
+    // Disable SCSS validation and let stylelint handle it
+    "scss.validate": false
 }

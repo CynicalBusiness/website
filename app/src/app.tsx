@@ -3,10 +3,10 @@ import { MainNav } from "./components/navigation/main-nav";
 
 export function App() {
     return (
-        <main className="container mx-auto">
-            <header>
+        <main>
+            <nav className="p-4">
                 <MainNav />
-            </header>
+            </nav>
             <Outlet />
         </main>
     );
