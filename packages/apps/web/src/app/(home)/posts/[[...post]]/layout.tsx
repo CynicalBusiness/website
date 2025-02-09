@@ -12,16 +12,17 @@ export default async function PostLayout({
     const { post = [] } = await params;
 
     const crumbs = post.map((path, index, arr) => {
-        // const pathname = "../" + arr.slice(0, index + 1).join("/");
-        const pathname =
+        const href =
             index < arr.length - 1
-                ? "../".repeat(arr.length - index - 1)
-                : "./";
+                ? index < arr.length - 2
+                    ? "../".repeat(arr.length - index - 2)
+                    : "./"
+                : "";
 
         return (
             <Link
                 key={index}
-                href={{ pathname }}
+                href={href}
                 className="before:content-['/'] before:px-2 no-underline hint"
             >
                 {path}

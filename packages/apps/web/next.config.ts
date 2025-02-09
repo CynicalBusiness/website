@@ -21,7 +21,7 @@ const nextConfig: WithNxOptions = {
             },
         },
     }),
-    trailingSlash: true,
+    trailingSlash: false,
 };
 
 const plugins = [
