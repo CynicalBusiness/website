@@ -1,7 +1,7 @@
 const { FlatCompat } = require("@eslint/eslintrc");
 const js = require("@eslint/js");
 const { fixupConfigRules } = require("@eslint/compat");
-const nx = require("@nx/eslint-plugin");
+// const nx = require("@nx/eslint-plugin");
 const baseConfig = require("../../../eslint.config.cjs");
 
 const compat = new FlatCompat({
@@ -16,8 +16,9 @@ module.exports = [
     ...fixupConfigRules(compat.extends("plugin:@next/next/recommended")),
 
     ...baseConfig,
-    ...nx.configs["flat/react-typescript"],
+    // ...nx.configs["flat/react-typescript"],
+
     {
-        ignores: [".next/**/*"],
+        ignores: [".next/**/*", "next.config.*"],
     },
 ];

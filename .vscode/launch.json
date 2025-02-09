@@ -3,14 +3,37 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Web",
+            "configurations": ["Web: Backend", "Web: Frontend"],
+            "presentation": {
+                "hidden": false,
+                "group": "compounds",
+                "order": 1
+            }
+        }
+    ],
     "configurations": [
         {
-            "name": "Launch Edge",
+            "name": "Web: Frontend",
             "type": "msedge",
             "request": "launch",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}",
             "sourceMaps": true
+        },
+        {
+            "name": "Web: Backend",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "cd ${workspaceFolder} && yarn nx serve web",
+            "cwd": "${workspaceFolder}/packages/apps/web",
+            "serverReadyAction": {
+                "action": "startDebugging",
+                "pattern": ".*Ready in.*",
+                "name": "Web: Frontend"
+            }
         }
     ]
 }

@@ -1,5 +1,5 @@
 {
-    "name": "@cynical.business/workspace",
+    "name": "@cynicalbusiness/workspace",
     "version": "0.0.0",
     "main": "lib/index.js",
     "type": "module",
@@ -7,7 +7,7 @@
     "author": "CynicalBusiness <matt@vevox.io>",
     "license": "GPL-v3",
     "private": true,
-    "packageManager": "yarn@4.5.1",
+    "packageManager": "yarn@4.6.0",
     "scripts": {
         "serve": "nx serve web"
     },
@@ -45,10 +45,11 @@
         "babel-jest": "^29.7.0",
         "eslint": "^9.20.0",
         "eslint-config-next": "15.1.6",
-        "eslint-config-prettier": "^9.1.0",
+        "eslint-config-prettier": "^10.0.1",
         "eslint-plugin-import": "^2.31.0",
         "eslint-plugin-jsx-a11y": "^6.10.2",
         "eslint-plugin-playwright": "^2.2.0",
+        "eslint-plugin-prettier": "^5.2.3",
         "eslint-plugin-react": "^7.37.4",
         "eslint-plugin-react-hooks": "^5.1.0",
         "eslint-plugin-unused-imports": "^4.1.4",

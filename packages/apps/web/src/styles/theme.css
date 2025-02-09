@@ -1,0 +1,25 @@
+@theme inline {
+    --color-brand: var(--color-cyan-600);
+    --color-brand-light: var(--color-cyan-400);
+    --color-brand-dark: var(--color-cyan-800);
+    --color-brand-text: var(--color-neutral-100);
+}
+
+@theme default {
+    --color-primary: var(--color-brand);
+    --color-primary-light: var(--color-brand-light);
+    --color-primary-dark: var(--color-brand-dark);
+    --color-primary-text: var(--color-brand-text);
+}
+
+@layer base {
+    body {
+        @apply bg-neutral-300;
+    }
+
+    * {
+        @apply transition duration-250;
+    }
+}
+
+@custom-variant active (&:where(.active, [active], [data-status="active"]));

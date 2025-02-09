@@ -1,9 +1,8 @@
 const eslint = require("@eslint/js");
 const tseslint = require("typescript-eslint");
-const stylistic = require("@stylistic/eslint-plugin");
 const unusedImports = require("eslint-plugin-unused-imports");
-const eslintConfigPrettier = require("eslint-config-prettier");
 const importPlugin = require("eslint-plugin-import");
+const prettierPluginRecommended = require("eslint-plugin-prettier/recommended");
 
 module.exports = [
     eslint.configs.recommended,
@@ -16,34 +15,23 @@ module.exports = [
     },
 
     importPlugin.flatConfigs.recommended,
+    importPlugin.flatConfigs.react,
     importPlugin.flatConfigs.typescript,
-    {
-        settings: {
-            "import/resolver": {
-                typescript: true,
-                node: true,
-            },
-        },
-    },
 
-    stylistic.configs.customize({
-        indent: 4,
-        quotes: "double",
-        semi: true,
-        commaDangle: "only-multiline",
-    }),
+    // eslintConfigPrettier,
+    prettierPluginRecommended,
 
     {
         rules: {
             "no-undef": "off", // https://eslint.org/docs/latest/rules/no-undef#handled_by_typescript
-            "@stylistic/arrow-parens": "off",
-            "@stylistic/quotes": [
-                "warn",
-                "double",
-                { avoidEscape: true, allowTemplateLiterals: true },
-            ],
             "import/extensions": ["error", "ignorePackages"],
             "import/no-unresolved": "off", // handled by typescript
+            "@typescript-eslint/no-empty-object-type": [
+                "error",
+                {
+                    allowInterfaces: "always",
+                },
+            ],
         },
     },
     {
@@ -52,6 +40,4 @@ module.exports = [
             "@typescript-eslint/no-require-imports": "off",
         },
     },
-
-    eslintConfigPrettier,
 ];
