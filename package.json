@@ -9,7 +9,7 @@
     "private": true,
     "packageManager": "yarn@4.6.0",
     "scripts": {
-        "serve": "nx serve web"
+        "serve": "tinacms dev -c \"yarn nx daemon --stop && yarn nx serve web --verbose\" --rootPath \"$INIT_CWD/packages/apps/web/src\""
     },
     "workspaces": [
         "packages/apps/*"
@@ -34,6 +34,7 @@
         "@swc/core": "~1.10.15",
         "@swc/helpers": "~0.5.15",
         "@tailwindcss/postcss": "^4.0.5",
+        "@tinacms/cli": "^1.8.3",
         "@types/babel__core": "^7.20.5",
         "@types/eslint__js": "^8.42.3",
         "@types/jest": "^29.5.14",

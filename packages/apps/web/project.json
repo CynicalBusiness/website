@@ -18,19 +18,17 @@
                 },
                 "production": {}
             }
-
         },
         "serve": {
             "executor": "@nx/next:server",
             "defaultConfiguration": "development",
             "options": {
-                "buildTarget": "web:build",
                 "dev": true
             },
             "configurations": {
                 "development": {
-                    "buildTarget": "web:build:development",
-                    "dev": true
+                    "dev": true,
+                    "buildTarget": "web:build:development"
                 },
                 "production": {
                     "dev": false,

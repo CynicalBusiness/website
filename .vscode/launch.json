@@ -21,8 +21,9 @@
             "name": "Web",
             "type": "node-terminal",
             "request": "launch",
-            "command": "cd ${workspaceFolder} && yarn nx serve web",
-            "cwd": "${workspaceFolder}/packages/apps/web",
+            "command": "yarn serve",
+            "outputCapture": "std",
+            // "cwd": "${workspaceFolder}/packages/apps/web",
             "serverReadyAction": {
                 "action": "startDebugging",
                 "pattern": ".*Ready in.*",

@@ -7,6 +7,11 @@
         "next": "~15.1.6",
         "react": "19.0.0",
         "react-dom": "19.0.0",
+        "tinacms": "^2.6.3",
         "tslib": "^2.8.1"
+    },
+    "scripts": {
+        "dev": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"next dev\"",
+        "build": "tinacms build && next build"
     }
 }
