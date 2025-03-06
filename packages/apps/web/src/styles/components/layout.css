@@ -1,5 +1,0 @@
-@layer components {
-    .container {
-        @apply mx-auto w-full md:w-md lg:w-lg xl:w-xl;
-    }
-}

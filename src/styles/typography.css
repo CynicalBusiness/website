@@ -1,0 +1,9 @@
+@layer base {
+    :is(a, .link):not(.plain) {
+        @apply underline decoration-current/25;
+
+        @variant active {
+            @apply no-underline font-bold;
+        }
+    }
+}

@@ -5,34 +5,29 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Web: Frontend",
-            "type": "msedge",
+            "name": "App: Server",
             "request": "launch",
-            "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}",
+            "type": "node",
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": ["run", "serve"],
+            "localRoot": "${workspaceFolder}/src",
+            // "killBehavior": "polite",
             "sourceMaps": true,
-            "presentation": {
-                "hidden": false,
-                "group": "web",
-                "order": 2
-            }
-        },
-        {
-            "name": "Web",
-            "type": "node-terminal",
-            "request": "launch",
-            "command": "cd ${workspaceFolder} && yarn nx serve web",
-            "cwd": "${workspaceFolder}/packages/apps/web",
+            "console": "integratedTerminal",
             "serverReadyAction": {
                 "action": "startDebugging",
-                "pattern": ".*Ready in.*",
-                "name": "Web: Frontend"
+                "pattern": "http://localhost",
+                "name": "App: Browser"
             },
-            "presentation": {
-                "hidden": false,
-                "group": "web",
-                "order": 1
-            }
+            "cascadeTerminateToConfigurations": ["App: Browser"]
+        },
+        {
+            "name": "App: Browser",
+            "request": "launch",
+            "type": "msedge",
+            "webRoot": "${workspaceFolder}/src",
+            "url": "http://localhost:3000",
+            "sourceMaps": true
         }
     ]
 }

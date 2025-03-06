@@ -2,9 +2,10 @@
     "compileOnSave": false,
     "compilerOptions": {
         "moduleResolution": "Bundler",
-        "module": "Preserve",
+        "module": "ESNext",
         "target": "ESNext",
         "baseUrl": ".",
+        "jsx": "react-jsx",
 
         "strict": true,
         "skipLibCheck": true
