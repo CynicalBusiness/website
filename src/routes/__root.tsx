@@ -2,13 +2,18 @@ import {
     HeadContent,
     Outlet,
     Scripts,
-    createRootRoute,
+    createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { PropsWithChildren } from "react";
 import styles from "~/styles/styles.css?url";
 import { seo } from "src/utils/seo.utils";
+import { QueryClient } from "@tanstack/react-query";
 
-export const Route = createRootRoute({
+export interface RootRouteContext {
+    queryClient: QueryClient;
+}
+
+export const Route = createRootRouteWithContext<RootRouteContext>()({
     component: RootComponent,
 
     head: () => ({

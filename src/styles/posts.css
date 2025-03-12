@@ -1,0 +1,13 @@
+@layer components {
+    .post-children {
+        @apply flex flex-row flex-wrap gap-4;
+
+        & > * {
+            @apply flex-1 basis-1/2;
+        }
+    }
+
+    .post-card {
+        @apply max-w-[25vw] min-w-48;
+    }
+}

@@ -18,7 +18,15 @@
     "files.associations": {
         "*.css": "tailwindcss"
     },
+    "files.readonlyInclude": {
+        "**/routeTree.gen.ts": true
+    },
     "files.watcherExclude": {
-        "**/.next/**": true
-    }
+        "**/routeTree.gen.ts": true
+    },
+    "search.exclude": {
+        "**/routeTree.gen.ts": true
+    },
+
+    "typescript.preferences.importModuleSpecifierEnding": "js"
 }

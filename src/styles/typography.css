@@ -1,9 +1,79 @@
 @layer base {
-    :is(a, .link):not(.plain) {
+    /* * Text * */
+    p {
+        @apply my-2 indent-4;
+    }
+
+    code {
+        @apply font-mono bg-black/5 rounded-md px-1;
+    }
+
+    /* * Links * */
+
+    :is(a, .link):not(:where(.plain, nav > *)) {
         @apply underline decoration-current/25;
 
         @variant active {
             @apply no-underline font-bold;
+        }
+    }
+
+    nav > :where(a, .link):not(.plain) {
+        @apply px-12 py-1 rounded-lg font-bold transition-all;
+
+        @variant hover {
+            @apply bg-black/10;
+        }
+
+        @variant active {
+            @apply bg-black/10 text-brand;
+        }
+    }
+
+    /* * Headers * */
+
+    h1 {
+        @apply text-4xl;
+    }
+    h2 {
+        @apply text-3xl;
+    }
+    h3 {
+        @apply text-2xl;
+    }
+    h4 {
+        @apply text-xl;
+    }
+    h5 {
+        @apply text-lg opacity-75;
+    }
+    h6 {
+        @apply opacity-50;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply my-3 relative;
+
+        &:has(+ :where(h1, h2, h3, h4, h5, h6)) {
+            @apply mb-0;
+        }
+
+        :is(& + :where(h1, h2, h3, h4, h5, h6), :first-child) {
+            @apply mt-0;
+        }
+
+        & > .header-link {
+            @apply text-sm align-middle mx-4;
+        }
+        @variant not-hover {
+            & > .header-link {
+                @apply invisible;
+            }
         }
     }
 }

@@ -1,5 +1,67 @@
 @layer components {
+    /* * Inline Objects * */
+    .icon {
+        @apply inline-block align-middle;
+    }
+
+    .chip {
+        @apply bg-background-dark text-background-fg rounded-full px-4 py-2 align-middle inline-flex flex-row items-center;
+
+        &.primary {
+            @apply text-primary;
+        }
+
+        &.small {
+            @apply px-2 py-1 text-xs;
+        }
+    }
+
+    /* * Panel * */
     .panel {
-        @apply bg-primary text-primary-fg;
+        @apply relative my-2 px-8 py-6 rounded-2xl bg-background-light;
+    }
+
+    /* * Card * */
+    article,
+    .card {
+        @apply relative my-2 px-8 py-6 rounded-2xl bg-background-light grid gap-x-6 gap-y-2 transition-all;
+        grid-template-areas:
+            "aside header"
+            "aside content"
+            "aside footer";
+        grid-template-columns: auto 1fr;
+
+        & > * {
+            grid-area: content;
+        }
+
+        & > :where(aside, .aside) {
+            @apply relative -ml-2;
+            grid-area: aside;
+        }
+
+        & > :where(header, .header) {
+            @apply font-semibold text-lg uppercase;
+            grid-area: header;
+        }
+
+        & > :where(footer, .footer) {
+            grid-area: footer;
+        }
+
+        @variant hover {
+            @apply contrast-110;
+        }
+    }
+
+    /* * Rules and Decorations * */
+    hr,
+    .hr {
+        @apply border-t border-background-dark2 my-2 mx-[5%];
+    }
+
+    /* * Lists * */
+    ul {
+        @apply list-disc ml-6;
     }
 }

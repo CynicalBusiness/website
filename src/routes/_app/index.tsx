@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BrandText } from "~/components/branding/brand-text";
+import { BrandText } from "~/components/branding/brand-text.js";
 
 export const Route = createFileRoute("/_app/")({
     component: RouteComponent,

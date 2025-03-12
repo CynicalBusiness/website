@@ -1,9 +1,12 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "moduleResolution": "Bundler",
+        "moduleResolution": "bundler",
         "module": "ESNext",
         "target": "ESNext",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "jsx": "react-jsx",
 

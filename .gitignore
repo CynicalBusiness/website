@@ -227,3 +227,11 @@ dist/
 .nx/cache
 .nx/workspace-data
 tmp/
+
+# Non-public site content
+content
+content/
+
+!.env
+.env.local
+.env.*.local

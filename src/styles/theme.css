@@ -1,20 +1,26 @@
 @theme {
-    --color-brand: var(--color-sky-400);
-    --color-brand-light: var(--color-cyan-500);
-    --color-brand-dark: var(--color-sky-700);
-    --color-brand-fg: var(--color-sky-50);
+    --color-brand: oklch(50% 0.1 236);
+    --color-brand-light: oklch(60% 0.1 236);
+    --color-brand-dark: oklch(40% 0.1 236);
+    --color-brand-fg: var(--color-blue-50);
 
     --color-primary: var(--color-brand);
     --color-primary-light: var(--color-brand-light);
     --color-primary-dark: var(--color-brand-dark);
     --color-primary-fg: var(--color-brand-fg);
+
+    --color-background: oklch(92% 0.01 255);
+    --color-background-light: oklch(95% 0.01 255);
+    --color-background-dark: oklch(88% 0.01 255);
+    --color-background-dark2: oklch(84% 0.01 255);
+    --color-background-fg: var(--color-gray-800);
 }
 
 @custom-variant active (&:where(.active, :active, [active], [data-status="active"]));
 
 @layer base {
     body {
-        @apply w-screen min-h-screen overflow-hidden bg-slate-100 text-gray-800;
+        @apply w-screen min-h-screen overflow-hidden bg-background text-background-fg;
         font-family: "Nunito", sans-serif;
         font-optical-sizing: auto;
 

@@ -1,5 +1,7 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { MainNav } from "~/components/layout/main-nav";
+import { Suspense } from "react";
+import { MainNav } from "~/components/layout/main-nav.js";
+import { Spinner } from "~/components/spinner.js";
 
 export const Route = createFileRoute("/_app")({
     component: RouteComponent,
@@ -10,7 +12,9 @@ function RouteComponent() {
         <>
             <MainNav />
             <main className="container">
-                <Outlet />
+                <Suspense fallback={<Spinner />}>
+                    <Outlet />
+                </Suspense>
             </main>
         </>
     );
