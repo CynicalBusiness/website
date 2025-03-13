@@ -26,17 +26,7 @@ const rehypePlugins: Options["rehypePlugins"] = [
         },
     ],
 ];
-const inlineElements = [
-    "i",
-    "em",
-    "strong",
-    "b",
-    "a",
-    "del",
-    "p",
-    "span",
-    "code",
-];
+const inlineElements = ["i", "em", "strong", "b", "a", "del", "span", "code"];
 
 export interface MarkupProps {
     children: string;
@@ -50,6 +40,7 @@ export function Markup({ children, inline }: MarkupProps) {
             remarkPlugins={remarkPlugins}
             rehypePlugins={rehypePlugins}
             allowedElements={inline ? inlineElements : undefined}
+            unwrapDisallowed
             components={{
                 span(props) {
                     const { className, ...rest } = props;

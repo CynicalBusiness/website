@@ -1,11 +1,11 @@
 @layer components {
     /* * Inline Objects * */
     .icon {
-        @apply inline-block align-middle;
+        @apply inline-block align-middle pb-[0.25em];
     }
 
     .chip {
-        @apply bg-background-dark text-background-fg rounded-full px-4 py-2 align-middle inline-flex flex-row items-center;
+        @apply bg-background-dark text-background-fg rounded-full px-4 py-2 align-middle inline-flex flex-row items-center relative -top-px;
 
         &.primary {
             @apply text-primary;
@@ -14,14 +14,68 @@
         &.small {
             @apply px-2 py-1 text-xs;
         }
+
+        & > .icon {
+            @apply p-0;
+        }
     }
 
-    /* * Panel * */
+    /* * Buttons * */
+    button,
+    .button {
+        @apply px-8 py-2 rounded-lg transition-all relative;
+
+        & > .icon {
+            @apply p-0;
+        }
+        & > .icon:first-child {
+            @apply absolute left-8 top-1/2 -translate-1/2 text-xl transition-[left];
+        }
+        &:has(> .icon:last-child) {
+            @apply pr-12;
+        }
+
+        & > .icon:last-child {
+            @apply absolute right-2 top-1/2 -translate-1/2 text-xl transition-[right];
+        }
+        &:has(> .icon:first-child) {
+            @apply pl-12;
+        }
+
+        &.large,
+        &:is(.large > *) {
+            @apply px-12 py-4 text-xl;
+
+            & > .icon {
+                @apply text-2xl;
+            }
+            &:has(> .icon:last-child) {
+                @apply pr-16;
+            }
+            &:has(> .icon:first-child) {
+                @apply pl-16;
+            }
+        }
+
+        &:not(.plain) {
+            @apply border-2 border-current/25;
+            @variant hover {
+                @apply contrast-110 bg-black/5;
+            }
+        }
+
+        @variant hover {
+            & > .icon:last-child {
+                @apply right-0;
+            }
+        }
+    }
+
+    /* * Blocks * */
     .panel {
         @apply relative my-2 px-8 py-6 rounded-2xl bg-background-light;
     }
 
-    /* * Card * */
     article,
     .card {
         @apply relative my-2 px-8 py-6 rounded-2xl bg-background-light grid gap-x-6 gap-y-2 transition-all;
@@ -52,6 +106,10 @@
         @variant hover {
             @apply contrast-110;
         }
+    }
+
+    pre {
+        @apply bg-black/2 p-2 text-xs rounded-lg overflow-x-auto [scrollbar-width:thin];
     }
 
     /* * Rules and Decorations * */

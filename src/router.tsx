@@ -4,6 +4,7 @@ import { routeTree } from "./routeTree.gen.js";
 import { isServer, QueryClient } from "@tanstack/react-query";
 import { DEBUG } from "./const.js";
 import { getRequestURL } from "@tanstack/react-start/server";
+import { HandleError } from "./components/errors/handle-error.js";
 
 const debug = DEBUG.extend("router");
 
@@ -27,16 +28,7 @@ export function createRouter() {
             },
             scrollRestoration: true,
 
-            defaultErrorComponent: function DefaultError({ error }) {
-                return (
-                    <div>
-                        <h4>Error</h4>
-                        <pre className="overflow-x-scroll">
-                            {JSON.stringify(error, null, 2)}
-                        </pre>
-                    </div>
-                );
-            },
+            defaultErrorComponent: HandleError,
         }),
         queryClient,
     );

@@ -1,0 +1,9 @@
+@layer base {
+    body {
+        @apply flex flex-col items-start justify-start h-screen overflow-x-hidden overflow-y-auto [scrollbar-width:thin];
+
+        & > footer {
+            @apply mt-auto py-4;
+        }
+    }
+}

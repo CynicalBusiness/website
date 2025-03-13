@@ -1,7 +1,7 @@
 import { compareDesc, isPast, parseISO } from "date-fns";
 import { readdir, readFile, stat } from "node:fs/promises";
-import { join } from "node:path";
-import { DEBUG } from "~/const.js";
+import { join, normalize } from "node:path";
+import { DEBUG, POST_INDEX } from "~/const.js";
 import { PostManifest } from "~/schema/post-manifest.schema.js";
 import { isNodeError } from "~/utils/validation.utils.js";
 import { AppServices } from "./container.js";
@@ -11,6 +11,11 @@ import { SchemaService } from "./schema.service.js";
 const debug = DEBUG.extend("posts");
 
 export class PostsService {
+    public static normalizeSlug(slug: string | undefined): string {
+        if (!slug || slug === POST_INDEX) return "";
+        return normalize(slug);
+    }
+
     public readonly postsDir: string;
 
     private readonly contentService: ContentService;
@@ -25,7 +30,10 @@ export class PostsService {
     }
 
     public getPostPath(slug: string): string {
-        return this.contentService.getContentPath("posts", slug);
+        return this.contentService.getContentPath(
+            "posts",
+            PostsService.normalizeSlug(slug),
+        );
     }
 
     public async readPostManifest(slug: string): Promise<PostManifest | null> {
@@ -122,7 +130,9 @@ export class PostsService {
             const manifestPromises = Iterator.from(entries)
                 .filter((entry) => entry.isDirectory())
                 .map(async (entry) => {
-                    const childSlug = `${slug}/${entry.name}`;
+                    const childSlug = slug
+                        ? `${slug}/${entry.name}`
+                        : entry.name;
                     return [
                         childSlug,
                         await this.readPostManifest(childSlug),

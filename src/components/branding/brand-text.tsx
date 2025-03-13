@@ -4,7 +4,7 @@ export interface BrandTextProps {
 
 export function BrandText({ bar }: BrandTextProps) {
     return (
-        <span className="brand">
+        <span className="brand font-normal">
             <span className="font-extrabold">Cynical</span>
             {bar && <>&nbsp;|</>}&nbsp;
             <span className="text-primary">Business</span>

@@ -5,7 +5,7 @@ export function MainNav() {
     return (
         <nav
             id="mainNav"
-            className="container flex items-center py-1 md:py-2 lg:py-4 gap-12"
+            className="container flex items-center py-1 md:py-2 lg:py-4 gap-12 mb-4"
         >
             <Link
                 to="/"
@@ -13,7 +13,7 @@ export function MainNav() {
             >
                 <BrandText />
             </Link>
-            <nav className="flex flex-2 justify-center gap-12">
+            <nav className="flex flex-2 justify-center gap-8">
                 <Link
                     to="/posts/$"
                     params={{ _splat: "blog" }}

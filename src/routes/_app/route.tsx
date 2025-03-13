@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { Suspense } from "react";
+import { Footer } from "~/components/layout/footer.js";
 import { MainNav } from "~/components/layout/main-nav.js";
 import { Spinner } from "~/components/spinner.js";
 
@@ -16,6 +17,7 @@ function RouteComponent() {
                     <Outlet />
                 </Suspense>
             </main>
+            <Footer />
         </>
     );
 }

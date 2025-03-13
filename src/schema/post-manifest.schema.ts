@@ -21,6 +21,11 @@ export const postManifestSchema = {
                 "The date the post was published. May be unset for drafts, or set in the future to schedule a post.",
             format: "date-time",
         },
+        updated: {
+            type: "string",
+            description: "The date the post was last updated, if any.",
+            format: "date-time",
+        },
         body: {
             oneOf: [
                 {

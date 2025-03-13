@@ -27,9 +27,9 @@ export function PostCard({ slug, manifest }: PostCardProps) {
             </aside>
             <header>{manifest.title}</header>
             {manifest.summary && (
-                <p>
+                <div>
                     <Markup>{manifest.summary}</Markup>
-                </p>
+                </div>
             )}
             <footer className="flex justify-between items-center">
                 <div className="chip small">

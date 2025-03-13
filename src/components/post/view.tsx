@@ -21,7 +21,6 @@ export function PostView({ slug }: PostViewProps) {
 
             {manifest.body && (
                 <section className="post-body">
-                    <hr />
                     <div className="panel">
                         <Suspense fallback={<Spinner />}>
                             <PostBody slug={slug} />

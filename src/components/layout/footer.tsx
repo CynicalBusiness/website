@@ -1,0 +1,42 @@
+import { TbCode, TbCopyright, TbHeart, TbMinus } from "react-icons/tb";
+import { Icon } from "../icon.js";
+import {
+    COPYRIGHT_HOLDER,
+    COPYRIGHT_LICENSE,
+    COPYRIGHT_LICENSE_URL,
+    SITE_SOURCE_URL,
+} from "~/const.js";
+import { Link } from "@tanstack/react-router";
+
+export function Footer() {
+    return (
+        <footer className="flex flex-row container justify-between opacity-50">
+            <div>
+                <p>
+                    <Icon Type={TbCopyright} />
+                    &nbsp;
+                    {COPYRIGHT_HOLDER},{" "}
+                    <a
+                        href={COPYRIGHT_LICENSE_URL}
+                        target="_blank"
+                    >
+                        {COPYRIGHT_LICENSE}
+                    </a>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <Icon Type={TbCode} /> with <Icon Type={TbHeart} /> by{" "}
+                    <Link to="/about">CynicalBusiness</Link>{" "}
+                    <Icon Type={TbMinus} />{" "}
+                    <a
+                        href={SITE_SOURCE_URL}
+                        target="_blank"
+                    >
+                        View Site Source
+                    </a>
+                </p>
+            </div>
+        </footer>
+    );
+}
