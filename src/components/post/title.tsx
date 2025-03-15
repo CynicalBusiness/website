@@ -11,9 +11,9 @@ export function PostTitle({ hideTitle, manifest }: PostTitleProps) {
     return (
         <>
             {!hideTitle && (
-                <h1 className="text-6xl">
+                <h1>
                     {manifest.title}{" "}
-                    <small className="text-2xl">
+                    <small className="text-[60%]">
                         by CynicalBusiness &nbsp;
                         <span
                             className="chip small"
