@@ -29,7 +29,7 @@
             @apply p-0;
         }
         & > .icon:first-child {
-            @apply absolute left-8 top-1/2 -translate-1/2 text-xl transition-[left];
+            @apply absolute left-8 top-1/2 -translate-1/2 text-xl transition-[left] text-primary;
         }
         &:has(> .icon:last-child) {
             @apply pr-12;
@@ -73,7 +73,7 @@
 
     /* * Blocks * */
     .panel {
-        @apply relative my-2 px-8 py-6 rounded-2xl bg-background-light;
+        @apply relative my-2 px-8 lg:px-12 py-6 lg:py-10 rounded-2xl bg-background-light;
     }
 
     article,
@@ -110,6 +110,10 @@
 
     pre {
         @apply bg-black/2 p-2 text-xs rounded-lg overflow-x-auto [scrollbar-width:thin];
+    }
+
+    fieldset {
+        @apply flex flex-row flex-wrap gap-2 lg:gap-4;
     }
 
     /* * Rules and Decorations * */

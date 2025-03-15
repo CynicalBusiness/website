@@ -1,9 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { TbArrowRight, TbBook, TbCode, TbNews } from "react-icons/tb";
+import {
+    TbArrowRight,
+    TbBook,
+    TbBrandBluesky,
+    TbBrandDiscord,
+    TbBrandGithub,
+    TbCode,
+    TbNews,
+} from "react-icons/tb";
 import { BrandText } from "~/components/branding/brand-text.js";
 import { Blurb } from "~/components/branding/blurb.js";
 import { Icon } from "~/components/icon.js";
-import { TAGLINE, TAGLINE2 } from "~/const.js";
+import { SOCIALS, TAGLINE, TAGLINE2 } from "~/const.js";
 
 export const Route = createFileRoute("/_app/")({
     component: RouteComponent,
@@ -11,21 +19,54 @@ export const Route = createFileRoute("/_app/")({
 
 function RouteComponent() {
     return (
-        <div className="flex flex-row justify-between mt-2 md:mt-8 lg:mt-16">
+        <div className="flex flex-col lg:flex-row justify-between mt-2 md:mt-8 lg:mt-16">
             <div className="flex flex-col justify-center float-left">
-                <h1 className="text-8xl mt-0">
+                <h1 className="lg:text-4xl xl:text-6xl 2xl:text-8xl mt-0">
                     <BrandText bar />
                 </h1>
-                <div className="float-left">
-                    <hgroup>
-                        <h2 className="mt-2">{TAGLINE}</h2>
-                        <h5>{TAGLINE2}</h5>
-                    </hgroup>
-                    <div className="md:my-8 lg:my-12" />
-                    <p className="">
-                        <Blurb />
-                    </p>
-                </div>
+                <hgroup>
+                    <h2 className="mt-2">{TAGLINE}</h2>
+                    <h5>{TAGLINE2}</h5>
+                </hgroup>
+                <fieldset className="not-sm:flex-col">
+                    <span>
+                        <Icon
+                            Type={TbBrandBluesky}
+                            className="text-brand"
+                        />{" "}
+                        <a
+                            href={SOCIALS.bsky.url}
+                            target="_blank"
+                        >
+                            {SOCIALS.bsky.name}
+                        </a>
+                    </span>
+                    <span className="not-sm:hidden">-</span>
+                    <span>
+                        <Icon
+                            Type={TbBrandGithub}
+                            className="text-brand"
+                        />{" "}
+                        <a
+                            href={SOCIALS.github.url}
+                            target="_blank"
+                        >
+                            {SOCIALS.github.name}
+                        </a>
+                    </span>
+                    <span className="not-sm:hidden">-</span>
+                    <span>
+                        <Icon
+                            Type={TbBrandDiscord}
+                            className="text-brand"
+                        />{" "}
+                        {SOCIALS.discord.name}
+                    </span>
+                </fieldset>
+                <div className="my-1" />
+                <p className="">
+                    <Blurb />
+                </p>
             </div>
             <div className="flex flex-col justify-start items-end gap-4 mt-8">
                 <Link

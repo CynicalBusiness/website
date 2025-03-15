@@ -6,4 +6,8 @@
             @apply mt-auto py-4;
         }
     }
+
+    .container {
+        @apply px-4;
+    }
 }

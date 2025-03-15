@@ -46,6 +46,20 @@ export const BLURBS: Array<[string, string]> = [
     ],
 ];
 
+export const SOCIALS = {
+    github: {
+        name: "@CynicalBusiness",
+        url: "https://github.com/CynicalBusiness",
+    },
+    bsky: {
+        name: "@cynicalbusiness.bsky.social",
+        url: "https://cynicalbusiness.bsky.social/",
+    },
+    discord: {
+        name: "@cynicalbusiness",
+    },
+} as const satisfies Record<string, { name: string; url?: string }>;
+
 export const COPYRIGHT_HOLDER = "CynicalBusiness 2025";
 export const COPYRIGHT_LICENSE = "CC BY-NC-SA 4.0";
 export const COPYRIGHT_LICENSE_URL =

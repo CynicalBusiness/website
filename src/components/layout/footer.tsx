@@ -1,4 +1,4 @@
-import { TbCode, TbCopyright, TbHeart, TbMinus } from "react-icons/tb";
+import { TbCode, TbCopyright, TbHeart } from "react-icons/tb";
 import { Icon } from "../icon.js";
 import {
     COPYRIGHT_HOLDER,
@@ -10,7 +10,7 @@ import { Link } from "@tanstack/react-router";
 
 export function Footer() {
     return (
-        <footer className="flex flex-row container justify-between opacity-50">
+        <footer className="flex flex-row gap-4 container justify-between opacity-50">
             <div>
                 <p>
                     <Icon Type={TbCopyright} />
@@ -19,19 +19,21 @@ export function Footer() {
                     <a
                         href={COPYRIGHT_LICENSE_URL}
                         target="_blank"
+                        className="inline-block"
                     >
                         {COPYRIGHT_LICENSE}
                     </a>
                 </p>
             </div>
             <div>
-                <p>
+                <p className="text-right">
                     <Icon Type={TbCode} /> with <Icon Type={TbHeart} /> by{" "}
                     <Link to="/about">CynicalBusiness</Link>{" "}
-                    <Icon Type={TbMinus} />{" "}
+                    <span className="not-md:hidden">-</span>{" "}
                     <a
                         href={SITE_SOURCE_URL}
                         target="_blank"
+                        className="inline-block"
                     >
                         View Site Source
                     </a>
