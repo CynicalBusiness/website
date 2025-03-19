@@ -60,7 +60,8 @@ export const SOCIALS = {
     },
 } as const satisfies Record<string, { name: string; url?: string }>;
 
-export const COPYRIGHT_HOLDER = "CynicalBusiness 2025";
+export const COPYRIGHT_HOLDER = "CynicalBusiness";
+export const COPYRIGHT_YEAR = "2025";
 export const COPYRIGHT_LICENSE = "CC BY-NC-SA 4.0";
 export const COPYRIGHT_LICENSE_URL =
     "https://creativecommons.org/licenses/by-nc-sa/4.0/";

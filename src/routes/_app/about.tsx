@@ -9,7 +9,13 @@ import {
 import { BrandText } from "~/components/branding/brand-text.js";
 import { Social } from "~/components/branding/social.js";
 import { PostBody } from "~/components/post/body.js";
-import { SOCIALS, TAGLINE2 } from "~/const.js";
+import {
+    COPYRIGHT_HOLDER,
+    COPYRIGHT_LICENSE,
+    COPYRIGHT_LICENSE_URL,
+    SOCIALS,
+    TAGLINE2,
+} from "~/const.js";
 
 export const Route = createFileRoute("/_app/about")({
     component: RouteComponent,
@@ -30,7 +36,7 @@ function RouteComponent() {
                 </div>
                 <div className="relative flex flex-col grow">
                     <div className="panel">
-                        <h5 className="mb-2">Links & Socials</h5>
+                        <h5>Links & Socials</h5>
                         <ul className="list-none ml-0 *:whitespace-nowrap">
                             <li>
                                 <Social
@@ -70,7 +76,7 @@ function RouteComponent() {
                         </ul>
                     </div>
                     <div className="panel">
-                        <h5 className="mb-2">Business Contact</h5>
+                        <h5>Business Contact</h5>
                         <p>
                             <Social
                                 icon={TbMail}
@@ -83,12 +89,33 @@ function RouteComponent() {
                                 (Temporarily Unavailable)
                             </span>
                         </p>
-                        <p className="text-sm max-w-100 opacity-50 text-center">
+                        <p className="text-sm max-w-100 opacity-50">
                             Business contacts are for business and professional
                             inquiries only.
                             <br />
                             For comments, questions, or general matters, please
                             reach out via BlueSky or Discord.
+                        </p>
+                    </div>
+                    <div className="panel">
+                        <h5>Licensing</h5>
+                        <p className="text-sm">
+                            I am generally open to sharing my works, but please
+                            respect the time and effort I put in.
+                        </p>
+                        <p className="text-sm opacity-75">
+                            All content on this site is licensed to{" "}
+                            {COPYRIGHT_HOLDER} under{" "}
+                            <a
+                                href={COPYRIGHT_LICENSE_URL}
+                                target="_blank"
+                            >
+                                {COPYRIGHT_LICENSE}
+                            </a>
+                            .
+                            <br />
+                            Please contact me for any licensing inquiries or
+                            exceptions.
                         </p>
                     </div>
                 </div>

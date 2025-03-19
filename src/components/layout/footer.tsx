@@ -4,6 +4,7 @@ import {
     COPYRIGHT_HOLDER,
     COPYRIGHT_LICENSE,
     COPYRIGHT_LICENSE_URL,
+    COPYRIGHT_YEAR,
     SITE_SOURCE_URL,
 } from "~/const.js";
 import { Link } from "@tanstack/react-router";
@@ -15,7 +16,7 @@ export function Footer() {
                 <p>
                     <Icon Type={TbCopyright} />
                     &nbsp;
-                    {COPYRIGHT_HOLDER},{" "}
+                    {COPYRIGHT_HOLDER} {COPYRIGHT_YEAR},{" "}
                     <a
                         href={COPYRIGHT_LICENSE_URL}
                         target="_blank"
