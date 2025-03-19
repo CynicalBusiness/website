@@ -15,20 +15,22 @@ export function PostTitle({ hideTitle, manifest }: PostTitleProps) {
                     {manifest.title}{" "}
                     <small className="text-[60%]">
                         by CynicalBusiness &nbsp;
-                        <span
-                            className="chip small"
-                            title={
-                                "Originally Published " +
-                                parseISO(
-                                    manifest.published,
-                                ).toLocaleDateString()
-                            }
-                        >
-                            {manifest.updated ? "Updated" : "Published"}{" "}
-                            {parseISO(
-                                manifest.updated ?? manifest.published,
-                            ).toLocaleDateString()}
-                        </span>
+                        {typeof manifest.published === "string" && (
+                            <span
+                                className="chip small"
+                                title={
+                                    "Originally Published " +
+                                    parseISO(
+                                        manifest.published,
+                                    ).toLocaleDateString()
+                                }
+                            >
+                                {manifest.updated ? "Updated" : "Published"}{" "}
+                                {parseISO(
+                                    manifest.updated ?? manifest.published,
+                                ).toLocaleDateString()}
+                            </span>
+                        )}
                     </small>
                 </h1>
             )}

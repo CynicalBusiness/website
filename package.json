@@ -39,7 +39,8 @@
         "remark-gfm": "^4.0.1",
         "remark-remove-comments": "^1.1.1",
         "tailwindcss": "^4.0.12",
-        "vinxi": "^0.5.3"
+        "vinxi": "^0.5.3",
+        "yaml": "^2.7.0"
     },
     "devDependencies": {
         "@dotenvx/dotenvx": "^1.38.4",

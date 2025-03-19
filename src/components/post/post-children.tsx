@@ -4,9 +4,10 @@ import { PostCard } from "./post-card.js";
 
 export interface PostChildrenProps {
     slug: string;
+    body?: boolean;
 }
 
-export function PostChildren({ slug }: PostChildrenProps) {
+export function PostChildren({ slug, body = true }: PostChildrenProps) {
     const { data: children } = useSuspenseQuery(queries.posts.children(slug));
 
     const postCards = children.map(([childSlug, child]) => (
@@ -17,10 +18,11 @@ export function PostChildren({ slug }: PostChildrenProps) {
         />
     ));
 
-    return postCards.length ? (
-        <>
-            <hr />
-            <section className="post-children">{postCards}</section>
-        </>
-    ) : null;
+    return (
+        <section className="post-children">
+            {postCards.length
+                ? postCards
+                : !body && <h5 className="text-center">Nothing here yet.</h5>}
+        </section>
+    );
 }

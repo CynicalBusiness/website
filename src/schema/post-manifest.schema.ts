@@ -16,10 +16,17 @@ export const postManifestSchema = {
             description: "A short summary of the post",
         },
         published: {
-            type: "string",
+            oneOf: [
+                {
+                    type: "string",
+                    format: "date-time",
+                },
+                {
+                    type: "boolean",
+                },
+            ],
             description:
                 "The date the post was published. May be unset for drafts, or set in the future to schedule a post.",
-            format: "date-time",
         },
         updated: {
             type: "string",
@@ -45,4 +52,7 @@ export const postManifestSchema = {
 
 export type PostManifest = FromSchema<typeof postManifestSchema>;
 
-export type PublishedPostManifest = PostManifest & { published: string };
+export type PublishedPostManifest = Exclude<
+    PostManifest,
+    { published: false | undefined }
+>;

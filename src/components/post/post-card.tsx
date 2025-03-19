@@ -21,7 +21,7 @@ export function PostCard({ slug, manifest }: PostCardProps) {
                 <span className="chip primary aspect-square">
                     <Icon
                         Type={TbNews}
-                        className="text-4xl"
+                        className="text-4xl bottom-0"
                     />
                 </span>
             </aside>
@@ -32,9 +32,11 @@ export function PostCard({ slug, manifest }: PostCardProps) {
                 </div>
             )}
             <footer className="flex justify-between items-center">
-                <div className="chip small">
-                    {parseISO(manifest.published).toLocaleDateString()}
-                </div>
+                {typeof manifest.published === "string" && (
+                    <div className="chip small">
+                        {parseISO(manifest.published).toLocaleDateString()}
+                    </div>
+                )}
                 <span>
                     Read Post <Icon Type={TbArrowRight} />
                 </span>

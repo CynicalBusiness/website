@@ -1,6 +1,7 @@
 import { compareDesc, isPast, parseISO } from "date-fns";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join, normalize } from "node:path";
+import yaml from "yaml";
 import { DEBUG, POST_INDEX } from "~/const.js";
 import { PostManifest } from "~/schema/post-manifest.schema.js";
 import { isNodeError } from "~/utils/validation.utils.js";
@@ -48,10 +49,10 @@ export class PostsService {
             }
 
             const manifestData = await readFile(
-                join(postDir, "manifest.json"),
+                join(postDir, "manifest.yaml"),
                 "utf-8",
             );
-            const manifest = JSON.parse(manifestData);
+            const manifest = yaml.parse(manifestData);
             if (!this.schemaService.validatePostManifest(manifest)) {
                 debug("Post manifest failed validation:", slug);
                 return null;
@@ -77,7 +78,7 @@ export class PostsService {
             return manifest;
         } catch (error) {
             if (isNodeError(error) && error.code === "ENOENT") {
-                debug("No such post directory:", slug);
+                debug("No such post directory or has no manifest:", slug);
                 return null;
             }
             throw error;
@@ -87,7 +88,11 @@ export class PostsService {
     public isManifestPublic(
         manifest: PostManifest | null,
     ): manifest is PostManifest & { published: string } {
-        return !!manifest?.published && isPast(parseISO(manifest.published));
+        return (
+            !!manifest?.published &&
+            (manifest.published === true ||
+                isPast(parseISO(manifest.published)))
+        );
     }
 
     public async readRawPostBody(slug: string): Promise<string | null> {
@@ -158,7 +163,7 @@ export class PostsService {
                 .sort(([, a], [, b]) => compareDesc(a.published, b.published));
         } catch (error) {
             if (isNodeError(error) && error.code === "ENOENT") {
-                debug("No such post directory:", slug);
+                debug("No such post directory or has no manifest:", slug);
                 return null;
             }
             throw error;

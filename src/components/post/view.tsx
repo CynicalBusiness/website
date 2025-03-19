@@ -17,17 +17,20 @@ export function PostView({ slug }: PostViewProps) {
         <>
             <PostTitle manifest={manifest} />
 
-            <PostChildren slug={slug} />
+            <PostChildren
+                slug={slug}
+                body={!!manifest.body}
+            />
 
-            {manifest.body && (
-                <section className="post-body">
+            <section className="post-body">
+                {manifest.body && (
                     <div className="panel">
                         <Suspense fallback={<Spinner />}>
                             <PostBody slug={slug} />
                         </Suspense>
                     </div>
-                </section>
-            )}
+                )}
+            </section>
         </>
     );
 }

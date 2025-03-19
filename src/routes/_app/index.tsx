@@ -6,12 +6,13 @@ import {
     TbBrandDiscord,
     TbBrandGithub,
     TbCode,
-    TbNews,
+    TbUserQuestion,
 } from "react-icons/tb";
 import { BrandText } from "~/components/branding/brand-text.js";
 import { Blurb } from "~/components/branding/blurb.js";
 import { Icon } from "~/components/icon.js";
 import { SOCIALS, TAGLINE, TAGLINE2 } from "~/const.js";
+import { Social } from "~/components/branding/social.js";
 
 export const Route = createFileRoute("/_app/")({
     component: RouteComponent,
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/_app/")({
 
 function RouteComponent() {
     return (
-        <div className="flex flex-col lg:flex-row justify-between mt-2 md:mt-8 lg:mt-16">
+        <div className="flex flex-col lg:flex-row justify-between">
             <div className="flex flex-col justify-center float-left">
                 <h1 className="lg:text-4xl xl:text-6xl 2xl:text-8xl mt-0">
                     <BrandText bar />
@@ -29,39 +30,23 @@ function RouteComponent() {
                     <h5>{TAGLINE2}</h5>
                 </hgroup>
                 <fieldset className="not-sm:flex-col">
-                    <span>
-                        <Icon
-                            Type={TbBrandBluesky}
-                            className="text-brand"
-                        />{" "}
-                        <a
-                            href={SOCIALS.bsky.url}
-                            target="_blank"
-                        >
-                            {SOCIALS.bsky.name}
-                        </a>
-                    </span>
+                    <Social
+                        icon={TbBrandBluesky}
+                        url={SOCIALS.bsky.url}
+                    >
+                        {SOCIALS.bsky.name}
+                    </Social>
                     <span className="not-sm:hidden">-</span>
-                    <span>
-                        <Icon
-                            Type={TbBrandGithub}
-                            className="text-brand"
-                        />{" "}
-                        <a
-                            href={SOCIALS.github.url}
-                            target="_blank"
-                        >
-                            {SOCIALS.github.name}
-                        </a>
-                    </span>
+                    <Social
+                        icon={TbBrandGithub}
+                        url={SOCIALS.github.url}
+                    >
+                        {SOCIALS.github.name}
+                    </Social>
                     <span className="not-sm:hidden">-</span>
-                    <span>
-                        <Icon
-                            Type={TbBrandDiscord}
-                            className="text-brand"
-                        />{" "}
+                    <Social icon={TbBrandDiscord}>
                         {SOCIALS.discord.name}
-                    </span>
+                    </Social>
                 </fieldset>
                 <div className="my-1" />
                 <p className="">
@@ -70,21 +55,19 @@ function RouteComponent() {
             </div>
             <div className="flex flex-col justify-start items-end gap-4 mt-8">
                 <Link
-                    to="/posts/$"
-                    params={{ _splat: "blog" }}
+                    to="/about"
                     className="button large"
                 >
-                    <Icon Type={TbNews} />
-                    <span>Read My Ramblings</span>
+                    <Icon Type={TbUserQuestion} />
+                    <span>Learn About Me</span>
                     <Icon Type={TbArrowRight} />
                 </Link>
                 <Link
-                    to="/posts/$"
-                    params={{ _splat: "tales" }}
+                    to="/posts"
                     className="button"
                 >
                     <Icon Type={TbBook} />
-                    <span>Embrace Storytime</span>
+                    <span>Read My Ramblings</span>
                     <Icon Type={TbArrowRight} />
                 </Link>
                 <a

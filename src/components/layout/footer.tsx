@@ -28,7 +28,9 @@ export function Footer() {
             <div>
                 <p className="text-right">
                     <Icon Type={TbCode} /> with <Icon Type={TbHeart} /> by{" "}
-                    <Link to="/about">CynicalBusiness</Link>{" "}
+                    <strong>
+                        <Link to="/about">CynicalBusiness</Link>
+                    </strong>{" "}
                     <span className="not-md:hidden">-</span>{" "}
                     <a
                         href={SITE_SOURCE_URL}
