@@ -1,13 +1,13 @@
 @layer components {
     .post-children {
-        @apply flex flex-row flex-wrap gap-4;
+        @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4;
 
         & > * {
-            @apply flex-1 basis-1/1 lg:basis-1/2;
+            @apply grow;
         }
     }
 
     .post-card {
-        @apply max-w-128 min-w-48 w-full;
+        @apply min-w-48;
     }
 }

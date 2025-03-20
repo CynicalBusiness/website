@@ -32,10 +32,12 @@ export function PostCard({ slug, manifest }: PostCardProps) {
                 </div>
             )}
             <footer className="flex justify-between items-center">
-                {typeof manifest.published === "string" && (
+                {typeof manifest.published === "string" ? (
                     <div className="chip small">
                         {parseISO(manifest.published).toLocaleDateString()}
                     </div>
+                ) : (
+                    <span />
                 )}
                 <span>
                     Read Post <Icon Type={TbArrowRight} />
