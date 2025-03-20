@@ -3,13 +3,32 @@ import { readdir, readFile, stat } from "node:fs/promises";
 import { join, normalize } from "node:path";
 import yaml from "yaml";
 import { DEBUG, POST_INDEX } from "~/const.js";
-import { PostManifest } from "~/schema/post-manifest.schema.js";
+import {
+    PostManifest,
+    PublishedPostManifest,
+} from "~/schema/post-manifest.schema.js";
 import { isNodeError } from "~/utils/validation.utils.js";
 import { AppServices } from "./container.js";
 import { ContentService } from "./content.service.js";
+import { ContextService } from "./context.js";
 import { SchemaService } from "./schema.service.js";
 
 const debug = DEBUG.extend("posts");
+
+interface PostCacheEntry {
+    readonly manifest?: PublishedPostManifest | null;
+    readonly body?: string | null;
+    readonly children?: readonly string[];
+}
+
+type PostCacheStore = Map<string, PostCacheEntry>;
+export const PostCacheStoreKey = Symbol("PostCacheStore");
+
+declare module "./context.js" {
+    interface RequestContextStore {
+        [PostCacheStoreKey]?: PostCacheStore;
+    }
+}
 
 export class PostsService {
     public static normalizeSlug(slug: string | undefined): string {
@@ -19,10 +38,16 @@ export class PostsService {
 
     public readonly postsDir: string;
 
+    private readonly contextService: ContextService;
     private readonly contentService: ContentService;
     private readonly schemaService: SchemaService;
 
-    constructor({ contentService, schemaService }: AppServices) {
+    constructor({
+        contextService,
+        contentService,
+        schemaService,
+    }: AppServices) {
+        this.contextService = contextService;
         this.contentService = contentService;
         this.schemaService = schemaService;
 
@@ -37,7 +62,14 @@ export class PostsService {
         );
     }
 
-    public async readPostManifest(slug: string): Promise<PostManifest | null> {
+    public async readPostManifest(
+        slug: string,
+    ): Promise<PublishedPostManifest | null> {
+        const cached = this.readCache(slug)?.manifest;
+        if (cached) {
+            return cached;
+        }
+
         const postDir = this.getPostPath(slug);
 
         try {
@@ -75,6 +107,7 @@ export class PostsService {
             }
 
             debug("Successfully fetched post manifest:", slug);
+            this.writeCache(slug, { manifest });
             return manifest;
         } catch (error) {
             if (isNodeError(error) && error.code === "ENOENT") {
@@ -168,5 +201,28 @@ export class PostsService {
             }
             throw error;
         }
+    }
+
+    private getCacheStore(): PostCacheStore {
+        let store = this.contextService.get(PostCacheStoreKey);
+        if (!store) {
+            this.contextService.set(PostCacheStoreKey, (store = new Map()));
+        }
+        return store;
+    }
+
+    private readCache(slug: string): PostCacheEntry | undefined {
+        return this.getCacheStore().get(slug);
+    }
+
+    private writeCache(
+        slug: string,
+        partialEntry: Partial<PostCacheEntry>,
+    ): PostCacheEntry {
+        const cacheStore = this.getCacheStore();
+
+        const entry = { ...(cacheStore.get(slug) ?? {}), ...partialEntry };
+        cacheStore.set(slug, entry);
+        return entry;
     }
 }
