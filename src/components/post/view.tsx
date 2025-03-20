@@ -5,6 +5,7 @@ import { PostBody } from "./body.js";
 import { Suspense } from "react";
 import { Spinner } from "../spinner.js";
 import { PostChildren } from "./post-children.js";
+import { PostCrumbs } from "./post-crumbs.js";
 
 export interface PostViewProps {
     slug: string;
@@ -15,8 +16,8 @@ export function PostView({ slug }: PostViewProps) {
 
     return (
         <>
+            <PostCrumbs slug={slug} />
             <PostTitle manifest={manifest} />
-
             <PostChildren
                 slug={slug}
                 body={!!manifest.body}
