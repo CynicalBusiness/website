@@ -10,10 +10,22 @@ export default defineConfig({
             }),
             svgr(),
         ],
+        build: {
+            target: "es2022",
+        },
     },
     server: {
         watchOptions: {
             ignored: ["**/node_modules/**", "**/.git/**", "**/dist/**"],
+        },
+        preset: "node-server",
+        esbuild: {
+            options: {
+                target: "es2024",
+                supported: {
+                    "top-level-await": true,
+                },
+            },
         },
     },
     tsr: {

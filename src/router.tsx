@@ -1,12 +1,8 @@
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen.js";
-import { isServer, QueryClient } from "@tanstack/react-query";
-import { DEBUG } from "./const.js";
-import { getRequestURL } from "@tanstack/react-start/server";
+import { QueryClient } from "@tanstack/react-query";
 import { HandleError } from "./components/errors/handle-error.js";
-
-const debug = DEBUG.extend("router");
 
 export function createRouter() {
     const queryClient = new QueryClient({
@@ -32,10 +28,6 @@ export function createRouter() {
         }),
         queryClient,
     );
-
-    if (isServer) {
-        debug("Web request:", getRequestURL().href);
-    }
 
     return router;
 }

@@ -1,0 +1,14 @@
+diff --git a/esm/mod.js b/esm/mod.js
+index 71cb37851405cacc107a6d83089ed5783289ac51..feea709c57b1648997818239ee378a63f98e2b41 100644
+--- a/esm/mod.js
++++ b/esm/mod.js
+@@ -6256,7 +6256,8 @@ var spawnCommand = (path, options) => {
+       toNodeStdio(options.stdin),
+       toNodeStdio(options.stdout),
+       toNodeStdio(options.stderr)
+-    ]
++    ],
++    shell: process.platform === "win32"
+   });
+   const exitResolvers = Promise.withResolvers();
+   child.on("exit", (code2) => {

@@ -63,5 +63,8 @@
         "vite": "^6.2.1",
         "vite-plugin-svgr": "^4.3.0",
         "vite-tsconfig-paths": "^5.1.4"
+    },
+    "resolutions": {
+        "dax-sh@npm:^0.39.1": "patch:dax-sh@npm%3A0.39.2#~/.yarn/patches/dax-sh-npm-0.39.2-dfb2890e1f.patch"
     }
 }

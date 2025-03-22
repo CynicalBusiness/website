@@ -1,18 +1,11 @@
-import { isServer, queryOptions } from "@tanstack/react-query";
-import {
-    getRequestHost,
-    getRequestProtocol,
-} from "@tanstack/react-start/server";
+import { queryOptions } from "@tanstack/react-query";
 import axios from "axios";
 import { PublishedPostManifest } from "~/schema/post-manifest.schema.js";
 
+export const BASE_URL = "/api/v1";
+
 export const api = axios.create({
-    baseURL: new URL(
-        "/api/v1",
-        isServer
-            ? `${getRequestProtocol()}://${getRequestHost()}/`
-            : window.location.href,
-    ).href,
+    baseURL: BASE_URL,
 });
 
 export const queries = {

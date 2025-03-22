@@ -3871,13 +3871,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dax-sh@npm:^0.39.1":
+"dax-sh@npm:0.39.2":
   version: 0.39.2
   resolution: "dax-sh@npm:0.39.2"
   dependencies:
     "@deno/shim-deno": "npm:~0.19.0"
     undici-types: "npm:^5.26"
   checksum: 10c0/b5ef7bc2d8359c7cc2ea794033e2a0aaf565ad61fd4171aa2fd10133bb68778a4455116add8feba706e0438979fc3f0534445c9a16f5d7b2ec7879e16dc34e06
+  languageName: node
+  linkType: hard
+
+"dax-sh@patch:dax-sh@npm%3A0.39.2#~/.yarn/patches/dax-sh-npm-0.39.2-dfb2890e1f.patch":
+  version: 0.39.2
+  resolution: "dax-sh@patch:dax-sh@npm%3A0.39.2#~/.yarn/patches/dax-sh-npm-0.39.2-dfb2890e1f.patch::version=0.39.2&hash=5b40e7"
+  dependencies:
+    "@deno/shim-deno": "npm:~0.19.0"
+    undici-types: "npm:^5.26"
+  checksum: 10c0/1e356851c43fa7de7a354fca6dff764723b0a2c8fca4ce1150f50120ddf179d4a0b9e9fecab1292996bbeae59ddc7e0434bae11113f8cfd57e52b5d2206d2c66
   languageName: node
   linkType: hard
 
