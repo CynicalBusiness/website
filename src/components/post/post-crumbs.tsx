@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { Suspense } from "react";
+import { Fragment, Suspense } from "react";
 import { queries } from "~/client/client.js";
 
 export interface PostCrumbsProps {
@@ -25,10 +25,10 @@ export function PostCrumbs({ slug }: PostCrumbsProps) {
     const slugs = Array.from(getCrumbs(slug));
 
     const slugElements = slugs.map((slug) => (
-        <>
+        <Fragment key={slug}>
             <span className="px-2">/</span>
             <PostCrumbs.Entry slug={slug} />
-        </>
+        </Fragment>
     ));
 
     return slugElements.length ? (
