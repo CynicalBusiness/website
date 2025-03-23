@@ -1,7 +1,7 @@
 @layer components {
     /* * Inline Objects * */
     .icon {
-        @apply inline-block align-middle relative bottom-[0.1em];
+        @apply inline-block align-middle relative bottom-[0.05em];
     }
 
     .chip {

@@ -29,7 +29,7 @@ function RouteComponent() {
                     <h2 className="mt-2">{TAGLINE}</h2>
                     <h5>{TAGLINE2}</h5>
                 </hgroup>
-                <fieldset className="not-sm:flex-col">
+                <fieldset className="not-sm:flex-col my-6">
                     <Social
                         icon={TbBrandBluesky}
                         url={SOCIALS.bsky.url}
@@ -59,7 +59,7 @@ function RouteComponent() {
                     className="button large"
                 >
                     <Icon Type={TbUserQuestion} />
-                    <span>Learn About Me</span>
+                    <span>Read About Me</span>
                     <Icon Type={TbArrowRight} />
                 </Link>
                 <Link
@@ -67,7 +67,7 @@ function RouteComponent() {
                     className="button"
                 >
                     <Icon Type={TbBook} />
-                    <span>Read My Ramblings</span>
+                    <span>My Ramblings</span>
                     <Icon Type={TbArrowRight} />
                 </Link>
                 <a
@@ -76,7 +76,7 @@ function RouteComponent() {
                     target="_blank"
                 >
                     <Icon Type={TbCode} />
-                    <span>See My Stuff</span>
+                    <span>My Stuff</span>
                     <Icon Type={TbArrowRight} />
                 </a>
             </div>
