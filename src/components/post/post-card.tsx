@@ -1,9 +1,9 @@
-import { PublishedPostManifest } from "~/schema/post-manifest.schema.js";
 import { Link } from "@tanstack/react-router";
-import { Markup } from "../markup.js";
-import { Icon } from "../icon.js";
 import { TbArrowRight, TbNews } from "react-icons/tb";
 import { parseISO } from "date-fns";
+import { Markup } from "../markup.js";
+import { Icon } from "../icon.js";
+import { PublishedPostManifest } from "~/schema/post-manifest.schema.js";
 
 export interface PostCardProps {
     slug: string;

@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { Icon } from "./icon.js";
 import { IconType } from "react-icons";
 import { TbLoader2 } from "react-icons/tb";
+import { Icon } from "./icon.js";
 
 export interface SpinnerProps {
     inline?: boolean;

@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { queries } from "~/client/client.js";
 import { Markup } from "../markup.js";
+import { queries } from "~/client/client.js";
 
 export interface PostBodyProps {
     slug: string;

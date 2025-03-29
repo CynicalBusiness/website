@@ -5,9 +5,9 @@ import {
     createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { PropsWithChildren } from "react";
-import styles from "~/styles/styles.css?url";
 import { seo } from "src/utils/seo.utils";
 import { QueryClient } from "@tanstack/react-query";
+import styles from "~/styles/styles.css?url";
 
 export interface RootRouteContext {
     queryClient: QueryClient;

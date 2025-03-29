@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { queries } from "~/client/client.js";
 import { PostCard } from "./post-card.js";
+import { queries } from "~/client/client.js";
 
 export interface PostChildrenProps {
     slug: string;

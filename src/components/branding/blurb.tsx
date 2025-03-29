@@ -1,8 +1,8 @@
 import { isServer } from "@tanstack/react-query";
 import { shuffle } from "lodash-es";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { BLURBS } from "~/const.js";
 import { Markup } from "../markup.js";
+import { BLURBS } from "~/const.js";
 
 export function Blurb() {
     const [blurbIdx, setBlurbIdx] = useState(-1);

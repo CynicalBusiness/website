@@ -3,8 +3,8 @@ import remarkGfm from "remark-gfm";
 import remarkRemoveComments from "remark-remove-comments";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import { Icon } from "./icon.js";
 import { TbLink } from "react-icons/tb";
+import { Icon } from "./icon.js";
 
 const remarkPlugins: Options["remarkPlugins"] = [
     remarkGfm,

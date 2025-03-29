@@ -1,4 +1,5 @@
 import { TbCode, TbCopyright, TbHeart } from "react-icons/tb";
+import { Link } from "@tanstack/react-router";
 import { Icon } from "../icon.js";
 import {
     COPYRIGHT_HOLDER,
@@ -7,7 +8,6 @@ import {
     COPYRIGHT_YEAR,
     SITE_SOURCE_URL,
 } from "~/const.js";
-import { Link } from "@tanstack/react-router";
 
 export function Footer() {
     return (

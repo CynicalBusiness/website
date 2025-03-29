@@ -1,6 +1,6 @@
-import { PublishedPostManifest } from "~/schema/post-manifest.schema.js";
-import { Markup } from "../markup.js";
 import { parseISO } from "date-fns";
+import { Markup } from "../markup.js";
+import { PublishedPostManifest } from "~/schema/post-manifest.schema.js";
 
 export interface PostTitleProps {
     manifest: PublishedPostManifest;

@@ -1,11 +1,11 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { queries } from "~/client/client.js";
-import { PostTitle } from "./title.js";
-import { PostBody } from "./body.js";
 import { Suspense } from "react";
 import { Spinner } from "../spinner.js";
+import { PostTitle } from "./title.js";
+import { PostBody } from "./body.js";
 import { PostChildren } from "./post-children.js";
 import { PostCrumbs } from "./post-crumbs.js";
+import { queries } from "~/client/client.js";
 
 export interface PostViewProps {
     slug: string;

@@ -1,7 +1,7 @@
 import { IconType } from "react-icons";
-import { Icon, IconProps } from "../icon.js";
 import { ReactNode, useMemo } from "react";
 import classNames from "classnames";
+import { Icon, IconProps } from "../icon.js";
 
 export interface SocialProps {
     children: ReactNode;

@@ -1,15 +1,15 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { join, relative } from "node:path";
 import Ajv, { Schema } from "ajv";
 import addFormats from "ajv-formats";
 import {
     wrapCompilerAsTypeGuard,
     wrapValidatorAsTypeGuard,
 } from "json-schema-to-ts";
-import { mkdir, writeFile } from "node:fs/promises";
-import { join, relative } from "node:path";
-import { DEBUG } from "~/const.js";
-import { postManifestSchema } from "~/schema/post-manifest.schema.js";
 import { AppServices } from "./container.js";
 import { ContentService } from "./content.service.js";
+import { DEBUG } from "~/const.js";
+import { postManifestSchema } from "~/schema/post-manifest.schema.js";
 
 const debug = DEBUG.extend("schema");
 

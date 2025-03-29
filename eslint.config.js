@@ -1,11 +1,14 @@
-const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const unusedImports = require("eslint-plugin-unused-imports");
-const importPlugin = require("eslint-plugin-import");
-const prettierPluginRecommended = require("eslint-plugin-prettier/recommended");
+import { defineConfig, globalIgnores } from "eslint/config";
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+import unusedImports from "eslint-plugin-unused-imports";
+import importPlugin from "eslint-plugin-import";
+import prettierPluginRecommended from "eslint-plugin-prettier/recommended";
 
-module.exports = [
-    eslint.configs.recommended,
+export default defineConfig([
+    globalIgnores(["node_modules/", ".output/", ".vinxi/"]),
+
+    js.configs.recommended,
     ...tseslint.configs.recommended,
     {
         plugins: { "unused-imports": unusedImports },
@@ -26,6 +29,7 @@ module.exports = [
             "no-undef": "off", // https://eslint.org/docs/latest/rules/no-undef#handled_by_typescript
             "import/extensions": ["error", "ignorePackages"],
             "import/no-unresolved": "off", // handled by typescript
+            "import/order": "warn",
             "@typescript-eslint/no-empty-object-type": [
                 "error",
                 {
@@ -40,4 +44,4 @@ module.exports = [
             "@typescript-eslint/no-require-imports": "off",
         },
     },
-];
+]);

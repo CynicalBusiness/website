@@ -1,4 +1,4 @@
-import debug from "debug";
+import debug, { Debugger } from "debug";
 import pkg from "../package.json" with { type: "json" };
 
 export {
@@ -11,6 +11,13 @@ export const APP_VERSION = pkg.version;
 
 export const DEBUG_NAMESPACE = "cynicalbusiness:website";
 export const DEBUG = debug(DEBUG_NAMESPACE);
+
+DEBUG.extend ??= function (this: Debugger, namespace: string, delimiter = ":") {
+    // the bundler has a real bad time with this for some reason
+    const newDebug = debug(this.namespace + delimiter + namespace);
+    newDebug.extend = this.extend;
+    return newDebug;
+};
 
 export const POST_INDEX = "index";
 

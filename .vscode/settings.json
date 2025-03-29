@@ -1,7 +1,9 @@
 {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
+        "source.fixAll.eslint": "explicit",
+        "source.organizeImports": "never",
+        "source.sortImports": "never"
     },
     "editor.quickSuggestions": {
         "strings": "on" // https://github.com/tailwindlabs/tailwindcss-intellisense?tab=readme-ov-file#recommended-vs-code-settings
@@ -28,5 +30,12 @@
         "**/routeTree.gen.ts": true
     },
 
-    "typescript.preferences.importModuleSpecifierEnding": "js"
+    "typescript.preferences.importModuleSpecifierEnding": "js",
+
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "never",
+            "source.sortImports": "never"
+        }
+    }
 }
