@@ -30,9 +30,11 @@ deploy:
         - chmod 400 "$DEPLOY_KEY"
         - ssh-add "$DEPLOY_KEY"
     script:
-        - ssh -o StrictHostKeyChecking=accept-new $DEPLOY_USER@$DEPLOY_HOST << EOF
-          curl --location --output "/tmp/website-$CI_JOB_ID.zip" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=build&job_token=$CI_JOB_TOKEN"
-          rm -rf ~/$DEPLOY_PATH
-          mkdir -p ~/$DEPLOY_PATH
-          unzip "/tmp/website-$CI_JOB_ID.zip" -d ~/$DEPLOY_PATH
-          EOF
+        - |
+            ssh -o StrictHostKeyChecking=accept-new $DEPLOY_USER@$DEPLOY_HOST '
+              set -e
+              curl --location --output "/tmp/website-$CI_JOB_ID.zip" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=build&job_token=$CI_JOB_TOKEN"
+              rm -rf $DEPLOY_PATH
+              mkdir -p $DEPLOY_PATH
+              unzip "/tmp/website-$CI_JOB_ID.zip" -d $DEPLOY_PATH
+            '
