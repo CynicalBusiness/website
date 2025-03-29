@@ -11,12 +11,18 @@ import { api, BASE_URL } from "./client/client.js";
 
 import "./services/container.js";
 
+let hasSetup = false;
 export default createStartHandler({
     createRouter,
     getRouterManifest,
-})(defaultStreamHandler);
+})((...args) => {
+    if (!hasSetup) {
+        hasSetup = true;
+        api.defaults.baseURL = new URL(
+            BASE_URL,
+            `${getRequestProtocol()}://${getRequestHost()}/`,
+        ).href;
+    }
 
-api.defaults.baseURL = new URL(
-    BASE_URL,
-    `${getRequestProtocol()}://${getRequestHost()}/`,
-).href;
+    return defaultStreamHandler(...args);
+});

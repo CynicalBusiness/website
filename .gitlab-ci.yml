@@ -33,7 +33,7 @@ deploy:
         - chmod 400 "$DEPLOY_KEY"
         - ssh-add "$DEPLOY_KEY"
     script:
-        - rsync -e "ssh -o StrictHostKeyChecking=no" -vaz --delete --include=".output/***" --include="package.json" --exclude="*" --chown $DEPLOY_USER:$DEPLOY_USER --chmod D775,F775 ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+        - rsync -e "ssh -o StrictHostKeyChecking=no" -az --delete --include=".output/***" --include="package.json" --exclude="*" --chown $DEPLOY_USER:$DEPLOY_USER --chmod D775,F775 ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
         # - |
         #     ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "/bin/sh -s" << EOT
         #       set -x -e
