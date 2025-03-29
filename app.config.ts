@@ -2,12 +2,14 @@ import { defineConfig } from "@tanstack/react-start/config";
 import svgr from "vite-plugin-svgr";
 import tsConfigPaths from "vite-tsconfig-paths";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export default defineConfig({
     vite: {
         plugins: [
             tsConfigPaths({
                 projects: ["./tsconfig.json"],
-            }),
+            }) as any,
             svgr(),
         ],
         build: {
