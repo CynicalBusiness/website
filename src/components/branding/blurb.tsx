@@ -23,6 +23,13 @@ export function Blurb() {
     const [blurb1, blurb2] =
         blurbIdx >= 0 ? shuffledBlurbs[blurbIdx] : ["", ""];
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            nextBlurb();
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [nextBlurb]);
+
     return (
         <button
             onClick={nextBlurb}
