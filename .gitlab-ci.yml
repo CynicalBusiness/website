@@ -25,17 +25,17 @@ deploy:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
         - when: manual
     before_script:
-        - apk add --no-cache --update openssh-client curl unzip
+        - apk add --no-cache --update openssh-client
         # Set up SSH access, per: https://docs.gitlab.com/ci/jobs/ssh_keys/#ssh-keys-when-using-the-docker-executor
         - eval $(ssh-agent -s)
         - chmod 400 "$DEPLOY_KEY"
         - ssh-add "$DEPLOY_KEY"
     script:
-        - |
-            ssh -o StrictHostKeyChecking=accept-new $DEPLOY_USER@$DEPLOY_HOST "/bin/sh -s" << EOT
-              set -x -e
-              curl --location --output "/tmp/website-$CI_JOB_ID.zip" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=build&job_token=$CI_JOB_TOKEN"
-              rm -rf $DEPLOY_PATH
-              mkdir -p $DEPLOY_PATH
-              unzip "/tmp/website-$CI_JOB_ID.zip" -d $DEPLOY_PATH
-            EOT
+        - rsync -e "ssh -o StrictHostKeyChecking=no" -vaz --delete --include=".output/***" --exclude="*" --chown $DEPLOY_USER:$DEPLOY_USER --chmod D775,F775 ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+        # - |
+        #     ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "/bin/sh -s" << EOT
+        #       set -x -e
+        #       rm -rf $DEPLOY_PATH
+        #       mkdir -p $DEPLOY_PATH
+        #       unzip "/tmp/website-$CI_JOB_ID.zip" -d $DEPLOY_PATH
+        #     EOT
