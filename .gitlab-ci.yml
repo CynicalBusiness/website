@@ -10,8 +10,6 @@ build:
         paths:
             - .output/
         expire_in: "1 day"
-        exclude:
-            - .output/server/node_modules/**/*
     cache:
         key: cache-$CI_COMMIT_BRANCH
         fallback_keys:
