@@ -45,6 +45,34 @@ export const postManifestSchema = {
             ],
             default: "document.md",
         },
+        assets: {
+            description: "Additional public assets for the post",
+            type: "array",
+            items: {
+                type: "object",
+                properties: {
+                    name: {
+                        description: "The name of the asset",
+                        type: "string",
+                    },
+                    path: {
+                        description:
+                            "The path to the asset, relative to the post's directory. Uses the name if not set.",
+                        type: "string",
+                    },
+                    contentType: {
+                        description: "Override the content type of the asset",
+                        type: "string",
+                    },
+                    role: {
+                        description: "Special role this asset serves, if any",
+                        type: "string",
+                        enum: ["thumb"],
+                    },
+                },
+                required: ["name"],
+            },
+        },
     },
 
     required: ["title"],
@@ -56,3 +84,8 @@ export type PublishedPostManifest = Exclude<
     PostManifest,
     { published: false | undefined }
 >;
+
+export interface PostInfo {
+    slug: string;
+    manifest: PublishedPostManifest;
+}

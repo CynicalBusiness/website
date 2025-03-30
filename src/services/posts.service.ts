@@ -1,22 +1,26 @@
 import { readdir, readFile, stat } from "node:fs/promises";
-import { join, normalize } from "node:path";
+import { join } from "node:path";
+import { normalize } from "node:path/posix";
 import { compareDesc, isPast, parseISO } from "date-fns";
 import yaml from "yaml";
+import NodeCache from "node-cache";
+import { isString } from "lodash-es";
 import { AppServices } from "./container.js";
 import { ContentService } from "./content.service.js";
-import { ContextService } from "./context.js";
 import { SchemaService } from "./schema.service.js";
 import { isNodeError } from "~/utils/validation.utils.js";
 import {
+    PostInfo,
     PostManifest,
     PublishedPostManifest,
 } from "~/schema/post-manifest.schema.js";
-import { DEBUG, POST_INDEX } from "~/const.js";
+import { DEBUG, IS_DEV, POST_INDEX, ZeroDate } from "~/const.js";
 
 const debug = DEBUG.extend("posts");
 
 interface PostCacheEntry {
-    readonly manifest?: PublishedPostManifest | null;
+    readonly slug: string;
+    readonly manifest?: PostManifest | null;
     readonly body?: string | null;
     readonly children?: readonly string[];
 }
@@ -30,24 +34,26 @@ declare module "./context.js" {
     }
 }
 
+const POST_CACHE_PREFIX = "post";
+const CHILDREN_CACHE_PREFIX = "children";
+
 export class PostsService {
-    public static normalizeSlug(slug: string | undefined): string {
+    public static normalizeSlug(slug: string | null | undefined): string {
         if (!slug || slug === POST_INDEX) return "";
+        slug = slug.replace(/__+/g, "/");
         return normalize(slug);
     }
 
     public readonly postsDir: string;
 
-    private readonly contextService: ContextService;
+    private readonly postCache = new NodeCache({
+        stdTTL: IS_DEV ? 10 : 60 * 60 * 5,
+        checkperiod: 60,
+    });
     private readonly contentService: ContentService;
     private readonly schemaService: SchemaService;
 
-    constructor({
-        contextService,
-        contentService,
-        schemaService,
-    }: AppServices) {
-        this.contextService = contextService;
+    constructor({ contentService, schemaService }: AppServices) {
         this.contentService = contentService;
         this.schemaService = schemaService;
 
@@ -62,14 +68,21 @@ export class PostsService {
         );
     }
 
-    public async readPostManifest(
-        slug: string,
-    ): Promise<PublishedPostManifest | null> {
-        const cached = this.readCache(slug)?.manifest;
-        if (cached) {
+    public async getPost(slug: string): Promise<PostInfo | null> {
+        const cached = this.postCache.get<PostInfo | null>(
+            `${POST_CACHE_PREFIX}:${slug}`,
+        );
+        if (cached !== undefined) {
             return cached;
         }
 
+        const manifest = await this.readPostManifest(slug);
+        const info = manifest ? { slug, manifest } : null;
+        this.postCache.set(`${POST_CACHE_PREFIX}:${slug}`, info);
+        return info;
+    }
+
+    private async readPostManifest(slug: string) {
         const postDir = this.getPostPath(slug);
 
         try {
@@ -97,7 +110,7 @@ export class PostsService {
 
             const slugLastSlash = slug.lastIndexOf("/");
             if (slugLastSlash > 0) {
-                const parentManifest = await this.readPostManifest(
+                const parentManifest = await this.getPost(
                     slug.slice(0, slugLastSlash),
                 );
                 if (!parentManifest) {
@@ -107,7 +120,6 @@ export class PostsService {
             }
 
             debug("Successfully fetched post manifest:", slug);
-            this.writeCache(slug, { manifest });
             return manifest;
         } catch (error) {
             if (isNodeError(error) && error.code === "ENOENT") {
@@ -118,9 +130,9 @@ export class PostsService {
         }
     }
 
-    public isManifestPublic(
+    private isManifestPublic(
         manifest: PostManifest | null,
-    ): manifest is PostManifest & { published: string } {
+    ): manifest is PublishedPostManifest {
         return (
             !!manifest?.published &&
             (manifest.published === true ||
@@ -128,10 +140,12 @@ export class PostsService {
         );
     }
 
-    public async readRawPostBody(slug: string): Promise<string | null> {
+    public async readRawPostBody({
+        slug,
+        manifest,
+    }: PostInfo): Promise<string | null> {
         const postDir = this.getPostPath(slug);
 
-        const manifest = await this.readPostManifest(slug);
         if (!this.isManifestPublic(manifest) || !manifest.body) {
             debug("No public post body:", slug);
             return null;
@@ -154,14 +168,20 @@ export class PostsService {
         }
     }
 
-    public async readPostChildren(
-        slug: string,
-    ): Promise<Array<
-        readonly [string, PostManifest & { published: string }]
-    > | null> {
-        const manifest = await this.readPostManifest(slug);
-        if (!manifest) return null;
+    public async getPostChildren({ slug }: PostInfo) {
+        const cached = this.postCache.get<PostInfo[] | null>(
+            `${CHILDREN_CACHE_PREFIX}:${slug}`,
+        );
+        if (cached !== undefined) {
+            return cached;
+        }
 
+        const children = await this.readPostChildren(slug);
+        this.postCache.set(`${CHILDREN_CACHE_PREFIX}:${slug}`, children);
+        return children;
+    }
+
+    private async readPostChildren(slug: string): Promise<PostInfo[] | null> {
         const postDir = this.getPostPath(slug);
         try {
             const entries = await readdir(postDir, { withFileTypes: true });
@@ -171,10 +191,7 @@ export class PostsService {
                     const childSlug = slug
                         ? `${slug}/${entry.name}`
                         : entry.name;
-                    return [
-                        childSlug,
-                        await this.readPostManifest(childSlug),
-                    ] as const;
+                    return await this.getPost(childSlug);
                 })
                 .toArray();
 
@@ -185,15 +202,24 @@ export class PostsService {
                         return null;
                     }
 
-                    const [slug, manifest] = result.value;
-                    if (this.isManifestPublic(manifest)) {
-                        return [slug, manifest] as const;
-                    }
-                    return null;
+                    return result.value &&
+                        this.isManifestPublic(result.value.manifest)
+                        ? result.value
+                        : null;
                 })
                 .filter((m) => !!m)
                 .toArray()
-                .sort(([, a], [, b]) => compareDesc(a.published, b.published));
+                .sort(
+                    ({ manifest: a }, { manifest: b }) =>
+                        compareDesc(
+                            isString(a.published)
+                                ? parseISO(a.published)
+                                : ZeroDate,
+                            isString(b.published)
+                                ? parseISO(b.published)
+                                : ZeroDate,
+                        ) || a.title.localeCompare(b.title),
+                );
         } catch (error) {
             if (isNodeError(error) && error.code === "ENOENT") {
                 debug("No such post directory or has no manifest:", slug);
@@ -201,28 +227,5 @@ export class PostsService {
             }
             throw error;
         }
-    }
-
-    private getCacheStore(): PostCacheStore {
-        let store = this.contextService.get(PostCacheStoreKey);
-        if (!store) {
-            this.contextService.set(PostCacheStoreKey, (store = new Map()));
-        }
-        return store;
-    }
-
-    private readCache(slug: string): PostCacheEntry | undefined {
-        return this.getCacheStore().get(slug);
-    }
-
-    private writeCache(
-        slug: string,
-        partialEntry: Partial<PostCacheEntry>,
-    ): PostCacheEntry {
-        const cacheStore = this.getCacheStore();
-
-        const entry = { ...(cacheStore.get(slug) ?? {}), ...partialEntry };
-        cacheStore.set(slug, entry);
-        return entry;
     }
 }

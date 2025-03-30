@@ -4,19 +4,18 @@ import { HTTPStatus } from "~/const.js";
 import { services } from "~/services/container.js";
 import { PostsService } from "~/services/posts.service.js";
 
-export const APIRoute = createAPIFileRoute("/api/v1/post/manifest/$")({
-    GET: async ({ params }) => {
-        const slug = PostsService.normalizeSlug(params._splat);
+export const APIRoute = createAPIFileRoute("/api/v1/post/$slug/manifest")({
+    GET: async ({ params: { slug } }) => {
+        slug = PostsService.normalizeSlug(slug);
 
         const { postsService } = services.cradle;
-        const manifest = await postsService.readPostManifest(slug);
-
-        if (!postsService.isManifestPublic(manifest)) {
+        const post = await postsService.getPost(slug);
+        if (!post) {
             return new Response("No such public post: " + slug, {
                 status: HTTPStatus.NOT_FOUND,
             });
         }
 
-        return json({ manifest });
+        return json({ manifest: post.manifest });
     },
 });

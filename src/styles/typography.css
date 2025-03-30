@@ -11,6 +11,10 @@
         @apply font-mono bg-black/5 rounded-md px-1;
     }
 
+    .hint {
+        @apply text-sm opacity-75;
+    }
+
     /* * Links * */
 
     :is(a, .link):not(:where(.plain, .button, nav > *)) {

@@ -11,13 +11,16 @@ export const APP_VERSION = pkg.version;
 
 export const DEBUG_NAMESPACE = "cynicalbusiness:website";
 export const DEBUG = debug(DEBUG_NAMESPACE);
-
 DEBUG.extend ??= function (this: Debugger, namespace: string, delimiter = ":") {
     // the bundler has a real bad time with this for some reason
     const newDebug = debug(this.namespace + delimiter + namespace);
     newDebug.extend = this.extend;
     return newDebug;
 };
+
+export const ENV =
+    process.env.NODE_ENV ?? process.env.VITE_ENV ?? "development";
+export const IS_DEV = ENV === "development";
 
 export const POST_INDEX = "index";
 
@@ -73,3 +76,6 @@ export const COPYRIGHT_LICENSE_URL =
     "https://creativecommons.org/licenses/by-nc-sa/4.0/";
 
 export const SITE_SOURCE_URL = "https://lab.vevox.io/CynicalBusiness/website";
+
+export const ZeroDate = new Date(0);
+export const EmptyArray: never[] = [];

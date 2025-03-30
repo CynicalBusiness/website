@@ -10,7 +10,7 @@ export interface PostChildrenProps {
 export function PostChildren({ slug, body = true }: PostChildrenProps) {
     const { data: children } = useSuspenseQuery(queries.posts.children(slug));
 
-    const postCards = children.map(([childSlug, child]) => (
+    const postCards = children.map(({ slug: childSlug, manifest: child }) => (
         <PostCard
             key={childSlug}
             slug={childSlug}

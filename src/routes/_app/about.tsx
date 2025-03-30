@@ -28,7 +28,7 @@ function RouteComponent() {
                 <BrandText bar />
             </h1>
             <h2>{TAGLINE2}</h2>
-            <div className="flex flex-row justify-stretch gap-4">
+            <div className="flex flex-row not-lg:flex-wrap justify-stretch gap-4">
                 <div className="grow">
                     <div className="panel">
                         <PostBody slug="about" />
