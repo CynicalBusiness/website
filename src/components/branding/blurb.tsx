@@ -26,7 +26,7 @@ export function Blurb() {
     useEffect(() => {
         const interval = setInterval(() => {
             nextBlurb();
-        }, 5000);
+        }, 10000);
         return () => clearInterval(interval);
     }, [nextBlurb]);
 
