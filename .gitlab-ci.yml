@@ -53,5 +53,5 @@ deploy:
         - |
             ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_HOST "/bin/sh -s" << EOT
               set -x -e
-              docker compose -f website.compose.yaml up -d
+              docker compose -f website.compose.yaml restart
             EOT
