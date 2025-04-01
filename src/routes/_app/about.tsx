@@ -10,9 +10,11 @@ import { BrandText } from "~/components/branding/brand-text.js";
 import { Social } from "~/components/branding/social.js";
 import { PostBody } from "~/components/post/body.js";
 import {
+    APP_VERSION,
     COPYRIGHT_HOLDER,
     COPYRIGHT_LICENSE,
     COPYRIGHT_LICENSE_URL,
+    SITE_SOURCE_URL,
     SOCIALS,
     TAGLINE2,
 } from "~/const.js";
@@ -118,6 +120,16 @@ function RouteComponent() {
                             exceptions.
                         </p>
                     </div>
+                    <p className="[font-family:monospace] opacity-50 text-xs text-center">
+                        <a
+                            href={SITE_SOURCE_URL}
+                            target="_blank"
+                            className="inline-block"
+                        >
+                            View Site Source
+                        </a>{" "}
+                        - <code>v{APP_VERSION}</code>
+                    </p>
                 </div>
             </div>
         </div>
