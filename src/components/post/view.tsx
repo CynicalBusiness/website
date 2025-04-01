@@ -1,22 +1,15 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { Spinner } from "../spinner.js";
 import { PostTitle } from "./title.js";
 import { PostBody } from "./body.js";
 import { PostChildren } from "./post-children.js";
-import { PostCrumbs } from "./post-crumbs.js";
-import { queries } from "~/client/client.js";
+import { PostInfo } from "~/schema/post-manifest.schema.js";
 
-export interface PostViewProps {
-    slug: string;
-}
+export interface PostViewProps extends Pick<PostInfo, "slug" | "manifest"> {}
 
-export function PostView({ slug }: PostViewProps) {
-    const { data: manifest } = useSuspenseQuery(queries.posts.manifest(slug));
-
+export function PostView({ slug, manifest }: PostViewProps) {
     return (
         <>
-            <PostCrumbs slug={slug} />
             <PostTitle manifest={manifest} />
             <PostChildren
                 slug={slug}

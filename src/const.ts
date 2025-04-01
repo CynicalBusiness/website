@@ -24,9 +24,13 @@ export const IS_DEV = ENV === "development";
 
 export const POST_INDEX = "index";
 
+export const PUBLIC_URL = "https://cynical.business";
+
+export const AUTHOR = "CynicalBusiness";
 export const TAGLINE = "I like to make things and share the knowledge.";
 export const TAGLINE2 =
     "Full-stack Web & Indie Game Developer and amateur wordsmith.";
+export const SUMMARY = `${TAGLINE} ${TAGLINE2}`;
 
 export const BLURBS: Array<[string, string]> = [
     [

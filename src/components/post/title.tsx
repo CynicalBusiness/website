@@ -1,5 +1,4 @@
 import { parseISO } from "date-fns";
-import { Markup } from "../markup.js";
 import { PublishedPostManifest } from "~/schema/post-manifest.schema.js";
 
 export interface PostTitleProps {
@@ -35,9 +34,7 @@ export function PostTitle({ hideTitle, manifest }: PostTitleProps) {
                 </h1>
             )}
             {manifest.summary && (
-                <h5 className="opacity-50">
-                    <Markup>{manifest.summary}</Markup>
-                </h5>
+                <h5 className="opacity-50">{manifest.summary}</h5>
             )}
         </>
     );

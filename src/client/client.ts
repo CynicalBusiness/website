@@ -1,9 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import axios from "axios";
-import {
-    PostInfo,
-    PublishedPostManifest,
-} from "~/schema/post-manifest.schema.js";
+import { PostInfo } from "~/schema/post-manifest.schema.js";
 
 export const BASE_URL = "/api/v1";
 
@@ -26,11 +23,11 @@ export const queries = {
                 queryKey: ["posts", "manifest", slug],
                 queryFn: async ({ signal }) =>
                     (
-                        await api.get<{ manifest: PublishedPostManifest }>(
+                        await api.get<PostInfo>(
                             `post/${flattenSlug(slug)}/manifest`,
                             { signal },
                         )
-                    ).data.manifest,
+                    ).data,
             }),
         body: (slug: string) =>
             queryOptions({

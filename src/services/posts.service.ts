@@ -76,13 +76,12 @@ export class PostsService {
             return cached;
         }
 
-        const manifest = await this.readPostManifest(slug);
-        const info = manifest ? { slug, manifest } : null;
+        const info = await this.readPostManifest(slug);
         this.postCache.set(`${POST_CACHE_PREFIX}:${slug}`, info);
         return info;
     }
 
-    private async readPostManifest(slug: string) {
+    private async readPostManifest(slug: string): Promise<PostInfo | null> {
         const postDir = this.getPostPath(slug);
 
         try {
@@ -109,18 +108,18 @@ export class PostsService {
             }
 
             const slugLastSlash = slug.lastIndexOf("/");
-            if (slugLastSlash > 0) {
-                const parentManifest = await this.getPost(
-                    slug.slice(0, slugLastSlash),
-                );
-                if (!parentManifest) {
-                    debug("No public parent post manifest:", slug);
-                    return null;
-                }
+            const parent =
+                slugLastSlash > 0
+                    ? await this.readPostManifest(slug.slice(0, slugLastSlash))
+                    : undefined;
+
+            if (parent === null) {
+                debug("No public parent post manifest:", slug);
+                return null;
             }
 
             debug("Successfully fetched post manifest:", slug);
-            return manifest;
+            return { slug, manifest, parent };
         } catch (error) {
             if (isNodeError(error) && error.code === "ENOENT") {
                 debug("No such post directory or has no manifest:", slug);

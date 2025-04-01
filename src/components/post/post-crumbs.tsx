@@ -1,35 +1,25 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { Fragment, Suspense } from "react";
-import { queries } from "~/client/client.js";
+import { Fragment, Suspense, useMemo } from "react";
+import { PostInfo } from "~/schema/post-manifest.schema.js";
+import { getPostAncestors } from "~/utils/posts.utils.js";
 
 export interface PostCrumbsProps {
-    slug: string;
+    post: PostInfo;
 }
 
-function* getCrumbs(slug: string) {
-    if (!slug) return;
-
-    let idx = 0;
-    while (true) {
-        idx = slug.indexOf("/", idx ? idx + 1 : undefined);
-        if (idx < 0) {
-            yield slug;
-            break;
-        }
-        yield slug.slice(0, idx);
-    }
-}
-
-export function PostCrumbs({ slug }: PostCrumbsProps) {
-    const slugs = Array.from(getCrumbs(slug));
-
-    const slugElements = slugs.map((slug) => (
-        <Fragment key={slug}>
-            <span className="px-2">/</span>
-            <PostCrumbs.Entry slug={slug} />
-        </Fragment>
-    ));
+export function PostCrumbs({ post }: PostCrumbsProps) {
+    const slugElements = useMemo(
+        () =>
+            Array.from(getPostAncestors(post))
+                .reverse()
+                .map((p) => (
+                    <Fragment key={p.slug}>
+                        <span className="px-2">/</span>
+                        <PostCrumbs.Entry post={p} />
+                    </Fragment>
+                )),
+        [post],
+    );
 
     return slugElements.length ? (
         <div>
@@ -44,18 +34,16 @@ export function PostCrumbs({ slug }: PostCrumbsProps) {
     ) : null;
 }
 
-PostCrumbs.Entry = function PostCrumbsEntry({ slug }: PostCrumbsProps) {
-    const {
-        data: { title },
-    } = useSuspenseQuery(queries.posts.manifest(slug));
-
+PostCrumbs.Entry = function PostCrumbsEntry({
+    post: { slug, manifest },
+}: PostCrumbsProps) {
     return (
         <Link
             to="/posts/$"
             params={{ _splat: slug }}
             activeOptions={{ exact: true }}
         >
-            {title}
+            {manifest.title}
         </Link>
     );
 };

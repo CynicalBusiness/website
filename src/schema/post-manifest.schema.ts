@@ -88,4 +88,5 @@ export type PublishedPostManifest = Exclude<
 export interface PostInfo {
     slug: string;
     manifest: PublishedPostManifest;
+    parent?: PostInfo;
 }

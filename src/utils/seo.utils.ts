@@ -1,33 +1,35 @@
-export const seo = ({
-    title,
-    description,
-    keywords,
-    image,
-}: {
-    title: string;
-    description?: string;
-    image?: string;
-    keywords?: string;
-}) => {
-    const tags = [
-        { title },
-        { name: "description", content: description },
-        { name: "keywords", content: keywords },
-        { name: "twitter:title", content: title },
-        { name: "twitter:description", content: description },
-        { name: "twitter:creator", content: "@cynicalbusiness" },
-        { name: "twitter:site", content: "@cynicalbusiness" },
-        { name: "og:type", content: "website" },
-        { name: "og:title", content: title },
-        { name: "og:description", content: description },
-        ...(image
-            ? [
-                  { name: "twitter:image", content: image },
-                  { name: "twitter:card", content: "summary_large_image" },
-                  { name: "og:image", content: image },
-              ]
-            : []),
-    ];
+import { AUTHOR, PUBLIC_URL } from "~/const.js";
 
-    return tags;
+export const pageMiscMeta = [
+    // { name: "keywords", content: "" },
+    { property: "twitter:creator", content: "@cynicalbusiness" },
+    { property: "twitter:site", content: AUTHOR },
+    { property: "twitter:url", content: PUBLIC_URL },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: PUBLIC_URL },
+];
+
+export const getPageTitleMeta = (title: string) => {
+    return [
+        { title },
+        { name: "title", content: title },
+        { property: "twitter:title", content: title },
+        { property: "og:title", content: title },
+    ];
+};
+
+export const getPageDescriptionMeta = (description: string) => {
+    return [
+        { name: "description", content: description },
+        { property: "twitter:description", content: description },
+        { property: "og:description", content: description },
+    ];
+};
+
+export const getPageImageMeta = (image: string) => {
+    return [
+        { property: "twitter:card", content: "summary_large_image" },
+        { property: "twitter:image", content: image },
+        { property: "og:image", content: image },
+    ];
 };

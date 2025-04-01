@@ -5,9 +5,15 @@ import {
     createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { PropsWithChildren } from "react";
-import { seo } from "src/utils/seo.utils";
+import {
+    getPageDescriptionMeta,
+    getPageImageMeta,
+    getPageTitleMeta,
+    pageMiscMeta,
+} from "src/utils/seo.utils";
 import { QueryClient } from "@tanstack/react-query";
 import styles from "~/styles/styles.css?url";
+import { AUTHOR, PUBLIC_URL, TAGLINE2 } from "~/const.js";
 
 export interface RootRouteContext {
     queryClient: QueryClient;
@@ -23,9 +29,10 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
                 name: "viewport",
                 content: "width=device-width, initial-scale=1",
             },
-            ...seo({
-                title: "CynicalBusiness",
-            }),
+            ...pageMiscMeta,
+            ...getPageTitleMeta(AUTHOR),
+            ...getPageDescriptionMeta(TAGLINE2),
+            ...getPageImageMeta(`${PUBLIC_URL}/favicon.png`),
         ],
         links: [
             {

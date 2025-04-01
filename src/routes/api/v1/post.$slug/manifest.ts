@@ -16,6 +16,6 @@ export const APIRoute = createAPIFileRoute("/api/v1/post/$slug/manifest")({
             });
         }
 
-        return json({ manifest: post.manifest });
+        return json(post);
     },
 });
