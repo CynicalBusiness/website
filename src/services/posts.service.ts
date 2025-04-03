@@ -202,7 +202,8 @@ export class PostsService {
                     }
 
                     return result.value &&
-                        this.isManifestPublic(result.value.manifest)
+                        this.isManifestPublic(result.value.manifest) &&
+                        !result.value.manifest.unlisted
                         ? result.value
                         : null;
                 })

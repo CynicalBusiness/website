@@ -32,6 +32,12 @@ export const postManifestSchema = {
             description:
                 "The date the post was published. May be unset for drafts, or set in the future to schedule a post.",
         },
+        unlisted: {
+            type: "boolean",
+            description:
+                "If set, the post will not appear as a child of its parent, but will be accessible via the slug. (Provided the post is published)",
+            default: false,
+        },
         updated: {
             type: "string",
             description: "The date the post was last updated, if any.",
