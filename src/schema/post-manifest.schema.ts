@@ -22,6 +22,10 @@ export const postManifestSchema = {
                     format: "date-time",
                 },
                 {
+                    type: "string",
+                    format: "date",
+                },
+                {
                     type: "boolean",
                 },
             ],
