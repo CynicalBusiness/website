@@ -1,6 +1,6 @@
 {
     "name": "@cynicalbusiness/web",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "productName": "cynical.business",
     "main": ".output/server/index.mjs",
     "type": "module",
