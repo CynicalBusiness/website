@@ -32,7 +32,7 @@ build:
     artifacts:
         paths:
             - .output/
-        expire_in: "1 day"
+        expire_in: "1 hour"
     cache: *cache
 
 # TODO - May want to switch to docker so the modules can be built on the same platform as the runtime
