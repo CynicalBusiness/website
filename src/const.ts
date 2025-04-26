@@ -65,8 +65,8 @@ export const SOCIALS = {
         url: "https://github.com/CynicalBusiness",
     },
     bsky: {
-        name: "@cynicalbusiness.bsky.social",
-        url: "https://cynicalbusiness.bsky.social/",
+        name: "@cynical.business",
+        url: "https://bsky.app/profile/cynical.business/",
     },
     discord: {
         name: "@cynicalbusiness",
