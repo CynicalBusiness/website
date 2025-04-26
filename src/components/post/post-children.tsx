@@ -22,7 +22,11 @@ export function PostChildren({ slug, body = true }: PostChildrenProps) {
         <section className="post-children">
             {postCards.length
                 ? postCards
-                : !body && <h5 className="text-center">Nothing here yet.</h5>}
+                : !body && (
+                      <h4 className="text-center col-span-full mt-16">
+                          Nothing's here quite yet. Check back soon!
+                      </h4>
+                  )}
         </section>
     );
 }
