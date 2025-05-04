@@ -13,6 +13,7 @@ import { h } from "hastscript";
 import classNames from "classnames";
 import { Icon } from "./icon.js";
 import { EmptyArray } from "~/const.js";
+import { remarkCustomDirectives } from "~/utils/markup.utils.js";
 
 const inlineElements = ["i", "em", "strong", "b", "a", "del", "span", "code"];
 
@@ -30,50 +31,7 @@ const baseRemarkPlugins: RemarkPluginList = [
     remarkRemoveComments,
     remarkDirective,
     remarkDirectiveRehype,
-    () => (tree: Root) => {
-        visit(tree, (node) => {
-            if (
-                node.type === "containerDirective" ||
-                node.type === "leafDirective" ||
-                node.type === "textDirective"
-            ) {
-                const data = node.data || (node.data = {});
-                const hast = h(node.name, node.attributes || {});
-
-                switch (node.name) {
-                    case "img":
-                        data.hName = hast.tagName;
-                        data.hProperties = {
-                            src: (node.children[0] as Text)?.value,
-                            ...hast.properties,
-                            class: classNames(
-                                node.type === "textDirective"
-                                    ? "inline"
-                                    : "inline-block",
-                                hast.properties?.className,
-                            ),
-                        };
-                        data.hChildren = [];
-                        break;
-                    case "center":
-                        data.hName = "div";
-                        data.hProperties = {
-                            class: "mx-auto text-center",
-                        };
-                        break;
-                    case "hint":
-                        data.hName = "span";
-                        data.hProperties = {
-                            class: "hint",
-                        };
-                        break;
-                    case "br":
-                        data.hName = "br";
-                        break;
-                }
-            }
-        });
-    },
+    remarkCustomDirectives,
 ];
 const baseRehypePlugins: RehypePluginList = [
     rehypeSlug,

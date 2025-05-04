@@ -120,6 +120,34 @@
         @apply pl-8 border-l-4 border-primary my-2 opacity-85;
     }
 
+    figure {
+        @apply relative border-black/10 border-1 rounded-lg px-4 py-2 text-center;
+
+        & > figcaption {
+            @apply text-sm bg-black/2 -mx-4 -mb-2 mt-2 px-4 py-2;
+        }
+    }
+
+    table {
+        @apply my-2;
+
+        & > thead {
+            @apply font-bold border-primary border-b-2;
+        }
+
+        & > tbody > tr:nth-child(even) {
+            @apply bg-black/2;
+        }
+
+        & :is(th, td) {
+            @apply px-4 py-1 text-left;
+
+            &:not(:first-child) {
+                @apply border-l-1 border-black/10;
+            }
+        }
+    }
+
     /* * Rules and Decorations * */
     hr,
     .hr {
